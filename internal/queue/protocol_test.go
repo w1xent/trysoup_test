@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
-	"os"
+	"soupqueue/internal/config"
 	"sync"
 	"testing"
 	"testing/synctest"
@@ -23,8 +23,8 @@ var schema string
 // Every test gets a private schema, even when a normal worker shares the database.
 func database(t *testing.T) (*queue.Store, string) {
 	t.Helper()
-	raw := os.Getenv("TEST_DATABASE_URL")
-	if raw == "" {
+	raw, configErr := config.Value("TEST_DATABASE_URL")
+	if configErr != nil {
 		t.Skip("integration test requires TEST_DATABASE_URL")
 	}
 	admin, err := queue.Open(raw)
@@ -308,11 +308,14 @@ func TestEffectErrorRollsBackState(t *testing.T) {
 func TestWorkerClockSkew(t *testing.T) {
 	_, dsn := database(t)
 	for _, offset := range []time.Duration{0, 60 * 365 * 24 * time.Hour} {
+		// Establish verified TLS with real wall time before changing the test clock.
+		s, err := queue.Open(dsn)
+		must(t, err)
+		s.DB.SetMaxOpenConns(1)
+		must(t, s.DB.PingContext(t.Context()))
+		t.Cleanup(func() { s.DB.Close() })
 		synctest.Test(t, func(t *testing.T) {
 			time.Sleep(offset)
-			s, err := queue.Open(dsn)
-			must(t, err)
-			defer s.DB.Close()
 			var dbNow time.Time
 			must(t, s.DB.QueryRow("SELECT clock_timestamp()").Scan(&dbNow))
 			if time.Since(dbNow).Abs() < 365*24*time.Hour {

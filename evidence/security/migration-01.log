@@ -1,0 +1,137 @@
+ Network queue-security-legacy_default  Creating
+ Network queue-security-legacy_default  Created
+ Volume queue-security-legacy_data  Creating
+ Volume queue-security-legacy_data  Created
+ Container queue-security-legacy-db-1  Creating
+ Container queue-security-legacy-db-1  Created
+ Container queue-security-legacy-db-1  Starting
+ Container queue-security-legacy-db-1  Started
+ Container queue-security-legacy-db-1  Waiting
+ Container queue-security-legacy-db-1  Healthy
+INSERT 0 1
+ request_key | state  
+-------------+--------
+ old-client  | queued
+(1 row)
+
+ Container queue-security-legacy-db-1  Stopping
+ Container queue-security-legacy-db-1  Stopped
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.50kB done
+#1 DONE 0.0s
+
+#2 [worker internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [worker internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [worker internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [worker build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 0.0s done
+#5 DONE 0.0s
+
+#6 [bootstrap internal] load build context
+#6 transferring context: 11.16kB done
+#6 DONE 0.0s
+
+#7 [worker build 2/7] WORKDIR /src
+#7 CACHED
+
+#8 [worker build 3/7] COPY go.mod go.sum ./
+#8 CACHED
+
+#9 [bootstrap build 4/7] RUN go mod download
+#9 CACHED
+
+#10 [bootstrap build 5/7] COPY cmd ./cmd
+#10 DONE 0.0s
+
+#11 [worker build 6/7] COPY internal ./internal
+#11 DONE 0.0s
+
+#12 [worker build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 DONE 5.4s
+
+#13 [bootstrap stage-1 1/1] COPY --from=build /queue /queue
+#13 DONE 0.0s
+
+#14 [bootstrap] exporting to image
+#14 exporting layers
+#14 exporting layers 0.4s done
+#14 exporting manifest sha256:d8b468ad8a42cc70c20cacaccede8241a787bfa948083bb8d9278fbc0b8fa9f3
+#14 exporting manifest sha256:d8b468ad8a42cc70c20cacaccede8241a787bfa948083bb8d9278fbc0b8fa9f3 done
+#14 exporting config sha256:dd0beec27a3e3df16e84c45f75dd3bbf25f348568ca4b7760b588064db75f4f4 done
+#14 exporting attestation manifest sha256:30868b5e6d7e12ba1c5daae6de910cc42c0799b92c48df47670580c2a59cb0ce 0.0s done
+#14 exporting manifest list sha256:a7465c2091a752bc4b0f6e0774240160431eb2e5f8cc93a3ad738cfc021e1647 done
+#14 naming to docker.io/library/queue-security-legacy-bootstrap:latest done
+#14 unpacking to docker.io/library/queue-security-legacy-bootstrap:latest
+#14 unpacking to docker.io/library/queue-security-legacy-bootstrap:latest 0.1s done
+#14 DONE 0.6s
+
+#15 [worker] exporting to image
+#15 exporting layers 0.4s done
+#15 exporting manifest sha256:7a2d762c28e9e64a5d285aadaab5df29e896a00bc93d451fae4da492234d4803 done
+#15 exporting config sha256:ddbc54390a312129286e0f6bcfd185ba97d21b3f9897f1afedfc38e185b455cf done
+#15 exporting attestation manifest sha256:a56541212614d72350b31b0c4106cd7306bfbc7849b758fb71c1e0fdad23c613 0.0s done
+#15 exporting manifest list sha256:e663a0aa274f6b5c0c2320ab2c4901d560868c39ea779793967ab29fe45f568c done
+#15 naming to docker.io/library/queue-security-legacy-worker:latest done
+#15 unpacking to docker.io/library/queue-security-legacy-worker:latest 0.1s done
+#15 DONE 0.6s
+
+#16 [api] exporting to image
+#16 exporting layers 0.4s done
+#16 exporting manifest sha256:30ed53c188dd5a4c45321fcec491a494cae7ffce889751573a7f4986f78e686d done
+#16 exporting config sha256:7f39e9d78cbb3cc003b179d9552fb236f63634297e623b2c89d7a06699ba60e2 done
+#16 exporting attestation manifest sha256:5baa8c1758ea14c24a2ee00dbf6e5ec0dfeda1d0a8d8d44aa96f5d6773cbad24 0.0s done
+#16 exporting manifest list sha256:39106b2de5fc2f30c40814033fee9b128f5bdfa23e2e5102f54edb0e2adcb6e8 done
+#16 naming to docker.io/library/queue-security-legacy-api:latest done
+#16 unpacking to docker.io/library/queue-security-legacy-api:latest 0.1s done
+#16 DONE 0.6s
+
+#17 [worker] resolving provenance for metadata file
+#17 DONE 0.0s
+
+#18 [api] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#19 [bootstrap] resolving provenance for metadata file
+#19 DONE 0.0s
+ queue-security-legacy-bootstrap  Built
+ queue-security-legacy-worker  Built
+ queue-security-legacy-api  Built
+ Volume queue-security-legacy_db_config  Creating
+ Volume queue-security-legacy_db_config  Created
+ Volume queue-security-legacy_db_socket  Creating
+ Volume queue-security-legacy_db_socket  Created
+ Volume queue-security-legacy_worker_config  Creating
+ Volume queue-security-legacy_worker_config  Created
+ Volume queue-security-legacy_api_config  Creating
+ Volume queue-security-legacy_api_config  Created
+ Container queue-security-legacy-bootstrap-1  Creating
+ Container queue-security-legacy-bootstrap-1  Created
+ Container queue-security-legacy-db-1  Recreate
+ Container queue-security-legacy-db-1  Recreated
+ Container queue-security-legacy-db-setup-1  Creating
+ Container queue-security-legacy-db-setup-1  Created
+ Container queue-security-legacy-api-1  Creating
+ Container queue-security-legacy-api-1  Created
+ Container queue-security-legacy-bootstrap-1  Starting
+ Container queue-security-legacy-bootstrap-1  Started
+ Container queue-security-legacy-bootstrap-1  Waiting
+ Container queue-security-legacy-bootstrap-1  Exited
+ Container queue-security-legacy-db-1  Starting
+ Container queue-security-legacy-db-1  Started
+ Container queue-security-legacy-db-1  Waiting
+ Container queue-security-legacy-db-1  Healthy
+ Container queue-security-legacy-db-setup-1  Starting
+ Container queue-security-legacy-db-setup-1  Started
+ Container queue-security-legacy-db-setup-1  Waiting
+ Container queue-security-legacy-db-setup-1  Waiting
+ Container queue-security-legacy-db-setup-1  service "db-setup" didn't complete successfully: exit 3
+ Container queue-security-legacy-db-setup-1  service "db-setup" didn't complete successfully: exit 3
+service "db-setup" didn't complete successfully: exit 3

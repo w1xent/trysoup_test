@@ -1,0 +1,6 @@
+?   	soupqueue/cmd/chaos	[no test files]
+?   	soupqueue/cmd/queue	[no test files]
+?   	soupqueue/internal/bootstrap	[no test files]
+?   	soupqueue/internal/config	[no test files]
+?   	soupqueue/internal/httpapi	[no test files]
+ok  	soupqueue/internal/queue	1.066s

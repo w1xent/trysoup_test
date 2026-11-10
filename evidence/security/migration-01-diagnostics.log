@@ -1,0 +1,38 @@
+db-setup-1  | BEGIN
+db-setup-1  | CREATE ROLE
+db-setup-1  | ALTER ROLE
+db-setup-1  | CREATE ROLE
+db-setup-1  | CREATE ROLE
+db-setup-1  | ALTER ROLE
+db-setup-1  | ALTER ROLE
+db-setup-1  | SET
+db-setup-1  | CREATE TABLE
+db-setup-1  | psql:/setup/schema.sql:15: NOTICE:  relation "jobs" already exists, skipping
+db-setup-1  | ALTER TABLE
+db-setup-1  | ALTER TABLE
+db-setup-1  | CREATE INDEX
+db-setup-1  | CREATE INDEX
+db-setup-1  | psql:/setup/schema.sql:20: NOTICE:  relation "jobs_claimable" already exists, skipping
+db-setup-1  | CREATE INDEX
+db-setup-1  | CREATE TABLE
+db-setup-1  | psql:/setup/schema.sql:26: NOTICE:  relation "effects" already exists, skipping
+db-setup-1  | ALTER DATABASE
+db-setup-1  | ALTER SCHEMA
+db-setup-1  | ALTER TABLE
+db-setup-1  | ALTER TABLE
+db-setup-1  | ALTER SEQUENCE
+db-setup-1  | REVOKE
+db-setup-1  | GRANT
+db-setup-1  | REVOKE
+db-setup-1  | GRANT
+db-setup-1  | REVOKE
+db-setup-1  | REVOKE
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | ERROR:  permission denied to alter role
+db-setup-1  | DETAIL:  The bootstrap superuser must have the SUPERUSER attribute.

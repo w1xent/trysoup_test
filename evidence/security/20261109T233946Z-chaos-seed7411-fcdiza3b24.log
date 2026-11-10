@@ -1,0 +1,342 @@
+2026/11/09 23:39:46.964260 raw=evidence/20261109T233946Z-chaos-seed7411-fcdiza3b24.log profile=chaos seed=7411 unique=10000 target_http_rps=100 project=soup-chaos-fcdiza3b24
+2026/11/09 23:40:06.794403 $ docker compose -p soup-chaos-fcdiza3b24 up --build -d --wait --scale worker=8
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.50kB done
+#1 DONE 0.0s
+
+#2 [worker internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [api internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [bootstrap internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [bootstrap build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [worker internal] load build context
+#6 transferring context: 7.25kB done
+#6 DONE 0.0s
+
+#7 [api build 2/7] WORKDIR /src
+#7 CACHED
+
+#8 [api build 3/7] COPY go.mod go.sum ./
+#8 CACHED
+
+#9 [api build 4/7] RUN go mod download
+#9 CACHED
+
+#10 [api build 5/7] COPY cmd ./cmd
+#10 DONE 0.0s
+
+#11 [worker build 6/7] COPY internal ./internal
+#11 DONE 0.0s
+
+#12 [worker build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 DONE 7.6s
+
+#13 [bootstrap stage-1 1/1] COPY --from=build /queue /queue
+#13 CACHED
+
+#13 [worker stage-1 1/1] COPY --from=build /queue /queue
+#13 CACHED
+
+#14 [api] exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:6cc066b0e8d5587fb21bc11bf5270749b1a98b2673ee9e8935e96539d2cff5e0 0.0s done
+#14 exporting config sha256:be72ca916f3444e7d6cc1c5a971ba1e493dc90dcf91d1e9077085aa82d34ebf8 0.0s done
+#14 exporting attestation manifest sha256:9bb1ac7157997953b7d21045161a4b84117010b6422ef9c20e7d59e0de7591b8 0.0s done
+#14 exporting manifest list sha256:ebf69d851632ddbfb03276e9517376fa50f52d2b40262c032a4f804b14cd4f57 done
+#14 naming to docker.io/library/soup-chaos-fcdiza3b24-api:latest done
+#14 unpacking to docker.io/library/soup-chaos-fcdiza3b24-api:latest done
+#14 DONE 0.1s
+
+#15 [worker] exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:3cecfa749efc6d3af2b0c6f72ad8646d0b04cb1549e7d4dbad2db8b39e79b601 0.0s done
+#15 exporting config sha256:ab520b341882140958675b191e0fcdac4df0de1f55d8869348393621bca0fe7e 0.0s done
+#15 exporting attestation manifest sha256:53143ab756414d2d2c92539f402cd544fb2c715dadd110277bbdf9400a7b0354 0.0s done
+#15 exporting manifest list sha256:c1c0330f491cf978fa8e7ab0c23ed6d7a49a3672a83d0ee033fdbe7544087875 done
+#15 naming to docker.io/library/soup-chaos-fcdiza3b24-worker:latest done
+#15 unpacking to docker.io/library/soup-chaos-fcdiza3b24-worker:latest done
+#15 DONE 0.1s
+
+#16 [bootstrap] exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:d671ff51083981032c42a81372fc586a28b4a663449b2ac52ce13ad773c2c4df 0.0s done
+#16 exporting config sha256:450306972ba7dac3b0768776035dd179e4b6114cb27b1e25851b5cfea2444d65 0.0s done
+#16 exporting attestation manifest sha256:58a18aa9c130f1e7ed5bc8203193bd31a560f788f49915cd8c75abfa2fadf6bd 0.0s done
+#16 exporting manifest list sha256:4d354e29b8befd7e5adec1df0cbe23d6dc76476aa7b4c028365866dd53045a01 done
+#16 naming to docker.io/library/soup-chaos-fcdiza3b24-bootstrap:latest done
+#16 unpacking to docker.io/library/soup-chaos-fcdiza3b24-bootstrap:latest done
+#16 DONE 0.1s
+
+#17 [api] resolving provenance for metadata file
+#17 DONE 0.1s
+
+#18 [bootstrap] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#19 [worker] resolving provenance for metadata file
+#19 DONE 0.0s
+ soup-chaos-fcdiza3b24-bootstrap  Built
+ soup-chaos-fcdiza3b24-worker  Built
+ soup-chaos-fcdiza3b24-api  Built
+ Network soup-chaos-fcdiza3b24_default  Creating
+ Network soup-chaos-fcdiza3b24_default  Created
+ Volume soup-chaos-fcdiza3b24_worker_config  Creating
+ Volume soup-chaos-fcdiza3b24_worker_config  Created
+ Volume soup-chaos-fcdiza3b24_data  Creating
+ Volume soup-chaos-fcdiza3b24_data  Created
+ Volume soup-chaos-fcdiza3b24_db_config  Creating
+ Volume soup-chaos-fcdiza3b24_db_config  Created
+ Volume soup-chaos-fcdiza3b24_db_socket  Creating
+ Volume soup-chaos-fcdiza3b24_db_socket  Created
+ Volume soup-chaos-fcdiza3b24_api_config  Creating
+ Volume soup-chaos-fcdiza3b24_api_config  Created
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Creating
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Created
+ Container soup-chaos-fcdiza3b24-db-1  Creating
+ Container soup-chaos-fcdiza3b24-db-1  Created
+ Container soup-chaos-fcdiza3b24-db-setup-1  Creating
+ Container soup-chaos-fcdiza3b24-db-setup-1  Created
+ Container soup-chaos-fcdiza3b24-api-1  Creating
+ Container soup-chaos-fcdiza3b24-worker-1  Creating
+ Container soup-chaos-fcdiza3b24-worker-8  Creating
+ Container soup-chaos-fcdiza3b24-worker-3  Creating
+ Container soup-chaos-fcdiza3b24-worker-2  Creating
+ Container soup-chaos-fcdiza3b24-worker-5  Creating
+ Container soup-chaos-fcdiza3b24-worker-4  Creating
+ Container soup-chaos-fcdiza3b24-worker-6  Creating
+ Container soup-chaos-fcdiza3b24-worker-7  Creating
+ Container soup-chaos-fcdiza3b24-worker-2  Created
+ Container soup-chaos-fcdiza3b24-worker-5  Created
+ Container soup-chaos-fcdiza3b24-worker-4  Created
+ Container soup-chaos-fcdiza3b24-worker-6  Created
+ Container soup-chaos-fcdiza3b24-worker-8  Created
+ Container soup-chaos-fcdiza3b24-worker-3  Created
+ Container soup-chaos-fcdiza3b24-api-1  Created
+ Container soup-chaos-fcdiza3b24-worker-7  Created
+ Container soup-chaos-fcdiza3b24-worker-1  Created
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Starting
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Started
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Waiting
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Exited
+ Container soup-chaos-fcdiza3b24-db-1  Starting
+ Container soup-chaos-fcdiza3b24-db-1  Started
+ Container soup-chaos-fcdiza3b24-db-1  Waiting
+ Container soup-chaos-fcdiza3b24-db-1  Healthy
+ Container soup-chaos-fcdiza3b24-db-setup-1  Starting
+ Container soup-chaos-fcdiza3b24-db-setup-1  Started
+ Container soup-chaos-fcdiza3b24-db-setup-1  Waiting
+ Container soup-chaos-fcdiza3b24-db-setup-1  Waiting
+ Container soup-chaos-fcdiza3b24-db-setup-1  Exited
+ Container soup-chaos-fcdiza3b24-api-1  Starting
+ Container soup-chaos-fcdiza3b24-db-setup-1  Exited
+ Container soup-chaos-fcdiza3b24-worker-3  Starting
+ Container soup-chaos-fcdiza3b24-api-1  Started
+ Container soup-chaos-fcdiza3b24-worker-3  Started
+ Container soup-chaos-fcdiza3b24-worker-1  Starting
+ Container soup-chaos-fcdiza3b24-worker-1  Started
+ Container soup-chaos-fcdiza3b24-worker-7  Starting
+ Container soup-chaos-fcdiza3b24-worker-7  Started
+ Container soup-chaos-fcdiza3b24-worker-4  Starting
+ Container soup-chaos-fcdiza3b24-worker-4  Started
+ Container soup-chaos-fcdiza3b24-worker-8  Starting
+ Container soup-chaos-fcdiza3b24-worker-8  Started
+ Container soup-chaos-fcdiza3b24-worker-6  Starting
+ Container soup-chaos-fcdiza3b24-worker-6  Started
+ Container soup-chaos-fcdiza3b24-worker-5  Starting
+ Container soup-chaos-fcdiza3b24-worker-5  Started
+ Container soup-chaos-fcdiza3b24-worker-2  Starting
+ Container soup-chaos-fcdiza3b24-worker-2  Started
+ Container soup-chaos-fcdiza3b24-worker-3  Waiting
+ Container soup-chaos-fcdiza3b24-worker-1  Waiting
+ Container soup-chaos-fcdiza3b24-worker-7  Waiting
+ Container soup-chaos-fcdiza3b24-worker-4  Waiting
+ Container soup-chaos-fcdiza3b24-worker-8  Waiting
+ Container soup-chaos-fcdiza3b24-worker-6  Waiting
+ Container soup-chaos-fcdiza3b24-worker-5  Waiting
+ Container soup-chaos-fcdiza3b24-worker-2  Waiting
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Waiting
+ Container soup-chaos-fcdiza3b24-db-1  Waiting
+ Container soup-chaos-fcdiza3b24-db-setup-1  Waiting
+ Container soup-chaos-fcdiza3b24-api-1  Waiting
+ Container soup-chaos-fcdiza3b24-db-1  Healthy
+ Container soup-chaos-fcdiza3b24-worker-3  Healthy
+ Container soup-chaos-fcdiza3b24-worker-1  Healthy
+ Container soup-chaos-fcdiza3b24-worker-7  Healthy
+ Container soup-chaos-fcdiza3b24-worker-4  Healthy
+ Container soup-chaos-fcdiza3b24-worker-8  Healthy
+ Container soup-chaos-fcdiza3b24-worker-6  Healthy
+ Container soup-chaos-fcdiza3b24-worker-5  Healthy
+ Container soup-chaos-fcdiza3b24-worker-2  Healthy
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Exited
+ Container soup-chaos-fcdiza3b24-api-1  Healthy
+ Container soup-chaos-fcdiza3b24-db-setup-1  Exited
+result=<nil>
+2026/11/09 23:40:07.397450 api=http://127.0.0.1:55011 workers=[soup-chaos-fcdiza3b24-worker-1 soup-chaos-fcdiza3b24-worker-2 soup-chaos-fcdiza3b24-worker-3 soup-chaos-fcdiza3b24-worker-4 soup-chaos-fcdiza3b24-worker-5 soup-chaos-fcdiza3b24-worker-6 soup-chaos-fcdiza3b24-worker-7 soup-chaos-fcdiza3b24-worker-8] db=PostgreSQL 17.11 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit|0|0
+2026/11/09 23:40:09.690652 SIGKILL victim=soup-chaos-fcdiza3b24-worker-8 exit=137 restarted=true
+2026/11/09 23:40:11.613005 SIGKILL victim=soup-chaos-fcdiza3b24-worker-8 exit=137 restarted=true
+2026/11/09 23:40:13.690279 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/09 23:40:15.715799 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/09 23:40:17.656033 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/09 23:40:19.667157 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/09 23:40:21.623973 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/09 23:40:22.928529 offered unique=1000 requests_dispatched=1534
+2026/11/09 23:40:23.691527 SIGKILL victim=soup-chaos-fcdiza3b24-worker-8 exit=137 restarted=true
+2026/11/09 23:40:25.691196 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/09 23:40:27.646978 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/09 23:40:29.633413 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/09 23:40:31.646045 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/09 23:40:33.653201 SIGKILL victim=soup-chaos-fcdiza3b24-worker-4 exit=137 restarted=true
+2026/11/09 23:52:32.994890 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/09 23:52:34.669638 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/09 23:52:35.161254 offered unique=2000 requests_dispatched=3067
+2026/11/09 23:52:36.660768 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/09 23:52:38.642491 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/09 23:52:40.583568 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/10 00:09:46.356710 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/10 00:09:48.247200 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 00:25:07.448974 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 00:25:08.071509 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/10 00:25:09.571273 offered unique=3000 requests_dispatched=4600
+2026/11/10 00:25:09.913326 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 00:41:33.488451 SIGKILL victim=soup-chaos-fcdiza3b24-worker-8 exit=137 restarted=true
+2026/11/10 00:41:34.709480 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/10 00:41:36.529456 SIGKILL victim=soup-chaos-fcdiza3b24-worker-4 exit=137 restarted=true
+2026/11/10 00:52:24.354822 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 00:52:25.250914 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/10 00:52:26.802000 SIGKILL victim=soup-chaos-fcdiza3b24-worker-8 exit=137 restarted=true
+2026/11/10 00:52:29.066776 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/10 00:52:30.014725 offered unique=4000 requests_dispatched=6134
+2026/11/10 00:52:30.843649 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/10 00:52:32.835515 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 00:52:34.940093 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/10 00:52:36.762021 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/10 00:52:38.732249 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/10 00:52:40.740623 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 00:52:42.767756 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/10 00:52:44.735366 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 00:52:45.351757 offered unique=5000 requests_dispatched=7667
+2026/11/10 00:52:46.751963 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 00:52:48.717848 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 00:52:50.744249 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 00:52:52.727511 SIGKILL victim=soup-chaos-fcdiza3b24-worker-4 exit=137 restarted=true
+2026/11/10 00:52:54.730027 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 00:52:56.739854 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/10 00:52:58.767031 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 00:53:00.681554 offered unique=6000 requests_dispatched=9200
+2026/11/10 00:53:00.759511 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 00:53:02.725509 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 00:53:04.751050 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/10 00:53:06.712325 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 01:08:07.758494 SIGKILL victim=soup-chaos-fcdiza3b24-worker-4 exit=137 restarted=true
+2026/11/10 01:08:08.456635 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 01:08:09.745108 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 01:08:10.914674 offered unique=7000 requests_dispatched=10734
+2026/11/10 01:08:11.651750 SIGKILL victim=soup-chaos-fcdiza3b24-worker-4 exit=137 restarted=true
+2026/11/10 01:08:13.763847 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/10 01:08:15.657430 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 01:08:17.688305 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/10 01:08:19.649756 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 01:08:21.633107 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/10 01:08:23.664236 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/10 01:08:25.640947 SIGKILL victim=soup-chaos-fcdiza3b24-worker-6 exit=137 restarted=true
+2026/11/10 01:08:26.254626 offered unique=8000 requests_dispatched=12267
+2026/11/10 01:08:27.626968 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 01:08:29.705740 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 01:08:31.625528 SIGKILL victim=soup-chaos-fcdiza3b24-worker-2 exit=137 restarted=true
+2026/11/10 01:08:33.601124 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 01:08:35.633329 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 01:08:37.657124 SIGKILL victim=soup-chaos-fcdiza3b24-worker-4 exit=137 restarted=true
+2026/11/10 01:08:39.642108 SIGKILL victim=soup-chaos-fcdiza3b24-worker-1 exit=137 restarted=true
+2026/11/10 01:08:41.584701 offered unique=9000 requests_dispatched=13800
+2026/11/10 01:08:41.657808 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 01:08:43.612613 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 01:08:45.638449 SIGKILL victim=soup-chaos-fcdiza3b24-worker-4 exit=137 restarted=true
+2026/11/10 01:08:47.628125 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 01:08:49.659601 SIGKILL victim=soup-chaos-fcdiza3b24-worker-7 exit=137 restarted=true
+2026/11/10 01:08:51.624882 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 01:08:53.615430 SIGKILL victim=soup-chaos-fcdiza3b24-worker-3 exit=137 restarted=true
+2026/11/10 01:08:55.604089 SIGKILL victim=soup-chaos-fcdiza3b24-worker-5 exit=137 restarted=true
+2026/11/10 01:08:56.914974 offered unique=10000 requests_dispatched=15334
+2026/11/10 01:08:56.916341 traffic offered_rps=100 completed_rps=100.81 seconds=153.322 planned_requests=15334 requests=15457 statuses=map[200:5334 201:10000 429:123]
+2026/11/10 01:08:56.920191 latency_ms http p50=1.85 p95=201.98 p99=1229.68 max=2438.90; from_scheduled p50=3.60 p95=1280.87 p99=3187.77 max=4520.87
+2026/11/10 01:08:57.188852 drain queued=0 running=0
+2026/11/10 01:08:57.398476 verified keys=10000 states=map[cancelled:1958 failed:351 succeeded:7691] effects=7691 attempts=8353 retried_jobs=39 kills=75 cancels=map[cancelled:1958 failed:3 succeeded:39] paginated=10000 missing=0 duplicate_effects=0 stuck=0 inconsistencies=0
+2026/11/10 01:08:58.915650 $ docker compose -p soup-chaos-fcdiza3b24 down -v --rmi local --timeout 5
+ Container soup-chaos-fcdiza3b24-api-1  Stopping
+ Container soup-chaos-fcdiza3b24-worker-2  Stopping
+ Container soup-chaos-fcdiza3b24-worker-1  Stopping
+ Container soup-chaos-fcdiza3b24-worker-4  Stopping
+ Container soup-chaos-fcdiza3b24-worker-3  Stopping
+ Container soup-chaos-fcdiza3b24-worker-7  Stopping
+ Container soup-chaos-fcdiza3b24-worker-6  Stopping
+ Container soup-chaos-fcdiza3b24-worker-8  Stopping
+ Container soup-chaos-fcdiza3b24-worker-5  Stopping
+ Container soup-chaos-fcdiza3b24-worker-5  Stopped
+ Container soup-chaos-fcdiza3b24-worker-5  Removing
+ Container soup-chaos-fcdiza3b24-worker-5  Removed
+ Container soup-chaos-fcdiza3b24-api-1  Stopped
+ Container soup-chaos-fcdiza3b24-api-1  Removing
+ Container soup-chaos-fcdiza3b24-api-1  Removed
+ Container soup-chaos-fcdiza3b24-worker-7  Stopped
+ Container soup-chaos-fcdiza3b24-worker-7  Removing
+ Container soup-chaos-fcdiza3b24-worker-7  Removed
+ Container soup-chaos-fcdiza3b24-worker-3  Stopped
+ Container soup-chaos-fcdiza3b24-worker-3  Removing
+ Container soup-chaos-fcdiza3b24-worker-2  Stopped
+ Container soup-chaos-fcdiza3b24-worker-2  Removing
+ Container soup-chaos-fcdiza3b24-worker-3  Removed
+ Container soup-chaos-fcdiza3b24-worker-2  Removed
+ Container soup-chaos-fcdiza3b24-worker-4  Stopped
+ Container soup-chaos-fcdiza3b24-worker-4  Removing
+ Container soup-chaos-fcdiza3b24-worker-8  Stopped
+ Container soup-chaos-fcdiza3b24-worker-8  Removing
+ Container soup-chaos-fcdiza3b24-worker-4  Removed
+ Container soup-chaos-fcdiza3b24-worker-1  Stopped
+ Container soup-chaos-fcdiza3b24-worker-1  Removing
+ Container soup-chaos-fcdiza3b24-worker-8  Removed
+ Container soup-chaos-fcdiza3b24-worker-6  Stopped
+ Container soup-chaos-fcdiza3b24-worker-6  Removing
+ Container soup-chaos-fcdiza3b24-worker-1  Removed
+ Container soup-chaos-fcdiza3b24-worker-6  Removed
+ Container soup-chaos-fcdiza3b24-db-setup-1  Stopping
+ Container soup-chaos-fcdiza3b24-db-setup-1  Stopped
+ Container soup-chaos-fcdiza3b24-db-setup-1  Removing
+ Container soup-chaos-fcdiza3b24-db-setup-1  Removed
+ Container soup-chaos-fcdiza3b24-db-1  Stopping
+ Container soup-chaos-fcdiza3b24-db-1  Stopped
+ Container soup-chaos-fcdiza3b24-db-1  Removing
+ Container soup-chaos-fcdiza3b24-db-1  Removed
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Stopping
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Stopped
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Removing
+ Container soup-chaos-fcdiza3b24-bootstrap-1  Removed
+ Image soup-chaos-fcdiza3b24-api:latest  Removing
+ Image soup-chaos-fcdiza3b24-worker:latest  Removing
+ Image soup-chaos-fcdiza3b24-bootstrap:latest  Removing
+ Volume soup-chaos-fcdiza3b24_db_config  Removing
+ Volume soup-chaos-fcdiza3b24_data  Removing
+ Volume soup-chaos-fcdiza3b24_db_socket  Removing
+ Network soup-chaos-fcdiza3b24_default  Removing
+ Volume soup-chaos-fcdiza3b24_api_config  Removing
+ Volume soup-chaos-fcdiza3b24_worker_config  Removing
+ Volume soup-chaos-fcdiza3b24_db_config  Removed
+ Image soup-chaos-fcdiza3b24-api:latest  Removed
+ Image soup-chaos-fcdiza3b24-bootstrap:latest  Removed
+ Volume soup-chaos-fcdiza3b24_data  Removed
+ Volume soup-chaos-fcdiza3b24_db_socket  Removed
+ Volume soup-chaos-fcdiza3b24_worker_config  Removed
+ Volume soup-chaos-fcdiza3b24_api_config  Removed
+ Image soup-chaos-fcdiza3b24-worker:latest  Removed
+ Network soup-chaos-fcdiza3b24_default  Removed
+result=<nil>
+2026/11/10 01:08:58.915743 RESULT PASS

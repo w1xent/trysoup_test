@@ -1,0 +1,87 @@
+x-app: &app
+  build: .
+  depends_on:
+    db-setup:
+      condition: service_completed_successfully
+
+services:
+  bootstrap:
+    build: .
+    user: "0:0"
+    command: ["bootstrap"]
+    volumes:
+      - api_config:/bootstrap/api
+      - worker_config:/bootstrap/worker
+      - db_config:/bootstrap/db
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: queue_admin
+      POSTGRES_PASSWORD_FILE: /run/db/admin_password
+      POSTGRES_DB: queue
+    depends_on:
+      bootstrap:
+        condition: service_completed_successfully
+    command: ["postgres", "-c", "ssl=on", "-c", "ssl_cert_file=/run/db/server.crt", "-c", "ssl_key_file=/run/db/server.key", "-c", "hba_file=/run/db/pg_hba.conf"]
+    volumes:
+      - data:/var/lib/postgresql/data
+      - db_config:/run/db:ro
+      - db_socket:/var/run/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "/var/run/postgresql", "-U", "queue_admin", "-d", "queue"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+  db-setup:
+    image: postgres:17-alpine
+    entrypoint: ["/bin/sh", "/setup/db-setup.sh"]
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - db_socket:/var/run/postgresql
+      - db_config:/run/db:ro
+      - ./scripts/db-setup.sh:/setup/db-setup.sh:ro
+      - ./internal/queue/schema.sql:/setup/schema.sql:ro
+  api:
+    <<: *app
+    command: ["api"]
+    environment:
+      DATABASE_URL_FILE: /run/config/database_url
+      API_TOKENS_FILE: /run/config/tokens.json
+      HTTP_ADDR: 0.0.0.0:8080
+    volumes:
+      - api_config:/run/config:ro
+    ports:
+      - "127.0.0.1:${HTTP_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "/queue", "health"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+  worker:
+    <<: *app
+    command: ["worker"]
+    environment:
+      DATABASE_URL_FILE: /run/config/database_url
+    volumes:
+      - worker_config:/run/config:ro
+    scale: 4
+  checks:
+    <<: *app
+    profiles: ["test"]
+    build:
+      context: .
+      target: build
+    environment:
+      TEST_DATABASE_URL_FILE: /run/db/test_database_url
+    volumes:
+      - db_config:/run/db:ro
+    command: ["go", "test", "-timeout=60s", "-count=1", "-v", "./..."]
+
+volumes:
+  data:
+  api_config:
+  worker_config:
+  db_config:
+  db_socket:

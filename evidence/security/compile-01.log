@@ -1,0 +1,14 @@
+?   	soupqueue/cmd/chaos	[no test files]
+# soupqueue/internal/queue_test [soupqueue/internal/queue.test]
+internal/queue/http_test.go:18:31: too many arguments in call to httptest.NewServer
+	have (http.Handler, error)
+	want (http.Handler)
+internal/queue/http_test.go:18:47: not enough arguments in call to httpapi.Handler
+	have (*queue.Store)
+	want (*queue.Store, map[string]string)
+?   	soupqueue/cmd/queue	[no test files]
+?   	soupqueue/internal/bootstrap	[no test files]
+?   	soupqueue/internal/config	[no test files]
+?   	soupqueue/internal/httpapi	[no test files]
+FAIL	soupqueue/internal/queue [build failed]
+FAIL

@@ -6,9 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
+	"strings"
 	"time"
 
-	_ "github.com/lib/pq"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 // Spec describes a job to be executed.
@@ -28,10 +29,12 @@ type Job struct {
 }
 
 var ErrConflict = errors.New("key already used for a different job")
+var ErrQueueFull = errors.New("queue capacity exceeded")
 var ErrLostLease = errors.New("attempt no longer owns the lease")
 
 type Store struct {
-	DB *sql.DB
+	DB    *sql.DB
+	owner string
 }
 
 // Open opens a queue.Store using the given PostgreSQL DSN.
@@ -41,17 +44,22 @@ func Open(dsn string) (*Store, error) {
 		return nil, errors.New("DATABASE_URL must be a PostgreSQL URL")
 	}
 	params := u.Query()
+	if mode := params.Get("sslmode"); mode != "" && mode != "verify-full" {
+		return nil, errors.New("DATABASE_URL requires sslmode=verify-full")
+	}
+	params.Set("sslmode", "verify-full")
+	params.Set("connect_timeout", "5")
 	params.Set("default_transaction_isolation", "read committed")
 	params.Set("statement_timeout", "5000")
 	params.Set("idle_in_transaction_session_timeout", "5000")
-	u.RawQuery = params.Encode()
-	db, err := sql.Open("postgres", u.String())
+	u.RawQuery = strings.ReplaceAll(params.Encode(), "+", "%20")
+	db, err := sql.Open("pgx", u.String())
 	if err != nil {
 		return nil, err
 	}
 	db.SetMaxOpenConns(16)
 	db.SetMaxIdleConns(8)
-	return &Store{db}, nil
+	return &Store{DB: db}, nil
 }
 
 const columns = "id, request_key, name, duration_ms, should_fail, state, attempt"
@@ -63,33 +71,78 @@ func readJob(row interface{ Scan(...any) error }) (Job, error) {
 	return j, err
 }
 
-// Create creates a new job with the given idempotency key and spec.
-// If a job with the same key already exists, it returns that job instead.
-// If the existing job has a different spec, it returns ErrConflict.
+// ForOwner scopes client operations without changing the shared connection pool.
+func (s *Store) ForOwner(owner string) *Store {
+	return &Store{DB: s.DB, owner: owner}
+}
+
+func (s *Store) ownerID() string {
+	if s.owner == "" {
+		return "legacy"
+	}
+	return s.owner
+}
+
+const MaxOwnerPending = 100
+const MaxOwnerWorkMS = 120000
+const MaxTotalPending = 1000
+const MaxTotalWorkMS = 600000
+
+// Create serializes admission across API replicas. Replays remain available at capacity.
 func (s *Store) Create(ctx context.Context, key string, spec Spec) (Job, bool, error) {
-	j, err := readJob(s.DB.QueryRowContext(ctx, `
-		INSERT INTO jobs(request_key, name, duration_ms, should_fail)
-		VALUES ($1,$2,$3,$4) ON CONFLICT (request_key) DO NOTHING RETURNING `+columns,
-		key, spec.Name, spec.DurationMS, spec.ShouldFail))
+	tx, err := s.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return Job{}, false, err
+	}
+	defer tx.Rollback()
+	if _, err = tx.ExecContext(ctx, "SELECT pg_advisory_xact_lock(73124511)"); err != nil {
+		return Job{}, false, err
+	}
+	existing := func() (Job, error) {
+		j, err := readJob(tx.QueryRowContext(ctx, "SELECT "+columns+" FROM jobs WHERE owner_id=$1 AND request_key=$2", s.ownerID(), key))
+		if err == nil && j.Spec != spec {
+			return Job{}, ErrConflict
+		}
+		return j, err
+	}
+	j, err := existing()
 	if !errors.Is(err, sql.ErrNoRows) {
-		return j, err == nil, err
+		return j, false, err
 	}
-	// This statement takes a fresh snapshot after the losing insert has waited.
-	j, err = readJob(s.DB.QueryRowContext(ctx, "SELECT "+columns+" FROM jobs WHERE request_key=$1", key))
-	if err == nil && j.Spec != spec {
-		return Job{}, false, ErrConflict
+	var ownCount, totalCount int
+	var ownWork, totalWork int64
+	err = tx.QueryRowContext(ctx, `SELECT count(*) FILTER (WHERE owner_id=$1), count(*),
+		coalesce(sum(duration_ms) FILTER (WHERE owner_id=$1),0), coalesce(sum(duration_ms),0)
+		FROM jobs WHERE state IN ('queued','running')`, s.ownerID()).Scan(&ownCount, &totalCount, &ownWork, &totalWork)
+	if err != nil {
+		return Job{}, false, err
 	}
-	return j, false, err
+	if ownCount >= MaxOwnerPending || totalCount >= MaxTotalPending ||
+		ownWork+int64(spec.DurationMS) > MaxOwnerWorkMS || totalWork+int64(spec.DurationMS) > MaxTotalWorkMS {
+		return Job{}, false, ErrQueueFull
+	}
+	j, err = readJob(tx.QueryRowContext(ctx, `INSERT INTO jobs(owner_id,request_key,name,duration_ms,should_fail)
+		VALUES ($1,$2,$3,$4,$5) ON CONFLICT (owner_id,request_key) DO NOTHING RETURNING `+columns,
+		s.ownerID(), key, spec.Name, spec.DurationMS, spec.ShouldFail))
+	if errors.Is(err, sql.ErrNoRows) {
+		// A direct concurrent INSERT may have committed while ours waited.
+		j, err = existing()
+		return j, false, err
+	}
+	if err != nil {
+		return Job{}, false, err
+	}
+	return j, true, tx.Commit()
 }
 
 // Get returns the job with the given ID.
 func (s *Store) Get(ctx context.Context, id int64) (Job, error) {
-	return readJob(s.DB.QueryRowContext(ctx, "SELECT "+columns+" FROM jobs WHERE id=$1", id))
+	return readJob(s.DB.QueryRowContext(ctx, "SELECT "+columns+" FROM jobs WHERE id=$1 AND owner_id=$2", id, s.ownerID()))
 }
 
 // List returns up to limit jobs with IDs greater than after, ordered by ID.
 func (s *Store) List(ctx context.Context, after int64, limit int) ([]Job, error) {
-	rows, err := s.DB.QueryContext(ctx, "SELECT "+columns+" FROM jobs WHERE id>$1 ORDER BY id LIMIT $2", after, limit)
+	rows, err := s.DB.QueryContext(ctx, "SELECT "+columns+" FROM jobs WHERE id>$1 AND owner_id=$3 ORDER BY id LIMIT $2", after, limit, s.ownerID())
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +162,7 @@ func (s *Store) List(ctx context.Context, after int64, limit int) ([]Job, error)
 // If the job is already finished, it returns the job without changing its state.
 func (s *Store) Cancel(ctx context.Context, id int64) (Job, error) {
 	j, err := readJob(s.DB.QueryRowContext(ctx, `UPDATE jobs SET state='cancelled', lease_until=NULL
-		WHERE id=$1 AND state IN ('queued','running') RETURNING `+columns, id))
+		WHERE id=$1 AND owner_id=$2 AND state IN ('queued','running') RETURNING `+columns, id, s.ownerID()))
 	if errors.Is(err, sql.ErrNoRows) {
 		return s.Get(ctx, id)
 	}

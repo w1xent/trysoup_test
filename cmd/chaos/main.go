@@ -55,7 +55,7 @@ func (r *run) compose(ctx context.Context, verbose bool, args ...string) (string
 }
 
 func (r *run) query(ctx context.Context, sql string) (string, error) {
-	return r.compose(ctx, false, "exec", "-T", "db", "psql", "-XAt", "-v", "ON_ERROR_STOP=1", "-U", "queue", "-d", "queue", "-c", sql)
+	return r.compose(ctx, false, "exec", "-T", "db", "psql", "-XAt", "-v", "ON_ERROR_STOP=1", "-U", "queue_admin", "-d", "queue", "-c", sql)
 }
 
 func (r *run) start(ctx context.Context) ([]string, error) {
@@ -176,6 +176,13 @@ func (r *run) exercise(ctx context.Context) error {
 		}
 	}()
 	traffic := newTraffic(r.base)
+	token, err := r.compose(ctx, false, "exec", "-T", "api", "/queue", "token")
+	if err != nil {
+		stop(err)
+		<-finished
+		return err
+	}
+	traffic.token = token
 	defer traffic.client.CloseIdleConnections()
 	receipts, err := r.load(workCtx, traffic)
 	if err == nil {

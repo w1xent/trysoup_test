@@ -1,0 +1,156 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.51kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [bootstrap internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [api internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [bootstrap build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [api internal] load build context
+#6 transferring context: 5.63kB done
+#6 DONE 0.0s
+
+#7 [api build 4/7] RUN go mod download
+#7 CACHED
+
+#8 [api build 2/7] WORKDIR /src
+#8 CACHED
+
+#9 [api build 3/7] COPY go.mod go.sum ./
+#9 CACHED
+
+#10 [bootstrap build 5/7] COPY cmd ./cmd
+#10 CACHED
+
+#11 [bootstrap build 6/7] COPY internal ./internal
+#11 DONE 0.0s
+
+#12 [bootstrap build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 DONE 4.6s
+
+#13 [api stage-1 1/1] COPY --from=build /queue /queue
+#13 DONE 0.0s
+
+#14 [api] exporting to image
+#14 exporting layers
+#14 exporting layers 0.3s done
+#14 exporting manifest sha256:c5a02cffd08d2df55d8bca201d6fef17abffe820bf172278ae80a74ab4852966
+#14 exporting manifest sha256:c5a02cffd08d2df55d8bca201d6fef17abffe820bf172278ae80a74ab4852966 done
+#14 exporting config sha256:cba98a89c326d1c3c4f29d7ecd12c86013c51e4402f9ffcd8a6f8768d8b77b11 done
+#14 exporting attestation manifest sha256:97609c3e9a4f025b6552de23af2fbca7c316f355ff682858102c0ea97ac494c3 0.0s done
+#14 exporting manifest list sha256:212855cae6813d0f646c4c77d73427bb5bf180db82f4472bc036e0705d6405cb done
+#14 naming to docker.io/library/queue-security-verify02-api:latest done
+#14 unpacking to docker.io/library/queue-security-verify02-api:latest 0.1s done
+#14 DONE 0.4s
+
+#15 [worker] exporting to image
+#15 exporting layers 0.3s done
+#15 exporting manifest sha256:1863e2a80aac31149cd6f3e185f49d20f7900e51a26fdd3667a4561323477bbc done
+#15 exporting config sha256:2c517ce78b9795bc201bf3a79645fb5cfe7d3112aa7c0deb9f14545d5d05f91d done
+#15 exporting attestation manifest sha256:a266b15e9abe0806be44b9ed3c06a041620a66509ea991c4d887faa208975602 0.0s done
+#15 exporting manifest list sha256:f348cd2b41f3fc2332e0be8d86906d9932dee9944c8d797fb28f763730120bce done
+#15 naming to docker.io/library/queue-security-verify02-worker:latest done
+#15 unpacking to docker.io/library/queue-security-verify02-worker:latest 0.0s done
+#15 DONE 0.4s
+
+#16 [bootstrap] exporting to image
+#16 exporting layers 0.3s done
+#16 exporting manifest sha256:76634ac3f41e009602587b7015b4b40c9bc6570fa9c7c68ad06da674ae582123 done
+#16 exporting config sha256:f42e49203b7ab7f269d9fe0021f6dad3b1b66e83dba5c2b8547e3a5635bfa23a done
+#16 exporting attestation manifest sha256:b5a7e0cb6c161e8fa0c27e620bd3eac19fac92485259eeb1d85a12181a92d97e 0.0s done
+#16 exporting manifest list sha256:a15a8ce28c742cd120f22d6ab5cfebe06ba8b351e06f47d96f43de25ad306efe done
+#16 naming to docker.io/library/queue-security-verify02-bootstrap:latest done
+#16 unpacking to docker.io/library/queue-security-verify02-bootstrap:latest 0.0s done
+#16 DONE 0.4s
+
+#17 [worker] resolving provenance for metadata file
+#17 DONE 0.0s
+
+#18 [api] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#19 [bootstrap] resolving provenance for metadata file
+#19 DONE 0.0s
+ queue-security-verify02-bootstrap  Built
+ queue-security-verify02-api  Built
+ queue-security-verify02-worker  Built
+ Network queue-security-verify02_default  Creating
+ Network queue-security-verify02_default  Created
+ Volume queue-security-verify02_db_config  Creating
+ Volume queue-security-verify02_db_config  Created
+ Volume queue-security-verify02_db_socket  Creating
+ Volume queue-security-verify02_db_socket  Created
+ Volume queue-security-verify02_api_config  Creating
+ Volume queue-security-verify02_api_config  Created
+ Volume queue-security-verify02_worker_config  Creating
+ Volume queue-security-verify02_worker_config  Created
+ Volume queue-security-verify02_data  Creating
+ Volume queue-security-verify02_data  Created
+ Container queue-security-verify02-bootstrap-1  Creating
+ Container queue-security-verify02-bootstrap-1  Created
+ Container queue-security-verify02-db-1  Creating
+ Container queue-security-verify02-db-1  Created
+ Container queue-security-verify02-db-setup-1  Creating
+ Container queue-security-verify02-db-setup-1  Created
+ Container queue-security-verify02-api-1  Creating
+ Container queue-security-verify02-worker-2  Creating
+ Container queue-security-verify02-worker-4  Creating
+ Container queue-security-verify02-worker-1  Creating
+ Container queue-security-verify02-worker-3  Creating
+ Container queue-security-verify02-worker-3  Created
+ Container queue-security-verify02-worker-2  Created
+ Container queue-security-verify02-worker-4  Created
+ Container queue-security-verify02-api-1  Created
+ Container queue-security-verify02-worker-1  Created
+ Container queue-security-verify02-bootstrap-1  Starting
+ Container queue-security-verify02-bootstrap-1  Started
+ Container queue-security-verify02-bootstrap-1  Waiting
+ Container queue-security-verify02-bootstrap-1  Exited
+ Container queue-security-verify02-db-1  Starting
+ Container queue-security-verify02-db-1  Started
+ Container queue-security-verify02-db-1  Waiting
+ Container queue-security-verify02-db-1  Healthy
+ Container queue-security-verify02-db-setup-1  Starting
+ Container queue-security-verify02-db-setup-1  Started
+ Container queue-security-verify02-db-setup-1  Waiting
+ Container queue-security-verify02-db-setup-1  Waiting
+ Container queue-security-verify02-db-setup-1  Exited
+ Container queue-security-verify02-worker-1  Starting
+ Container queue-security-verify02-db-setup-1  Exited
+ Container queue-security-verify02-api-1  Starting
+ Container queue-security-verify02-api-1  Started
+ Container queue-security-verify02-worker-1  Started
+ Container queue-security-verify02-worker-4  Starting
+ Container queue-security-verify02-worker-4  Started
+ Container queue-security-verify02-worker-2  Starting
+ Container queue-security-verify02-worker-2  Started
+ Container queue-security-verify02-worker-3  Starting
+ Container queue-security-verify02-worker-3  Started
+ Container queue-security-verify02-bootstrap-1  Waiting
+ Container queue-security-verify02-db-1  Waiting
+ Container queue-security-verify02-db-setup-1  Waiting
+ Container queue-security-verify02-api-1  Waiting
+ Container queue-security-verify02-worker-1  Waiting
+ Container queue-security-verify02-worker-4  Waiting
+ Container queue-security-verify02-worker-2  Waiting
+ Container queue-security-verify02-worker-3  Waiting
+ Container queue-security-verify02-worker-1  Healthy
+ Container queue-security-verify02-worker-4  Healthy
+ Container queue-security-verify02-worker-2  Healthy
+ Container queue-security-verify02-worker-3  Healthy
+ Container queue-security-verify02-db-1  Healthy
+ Container queue-security-verify02-bootstrap-1  Exited
+ Container queue-security-verify02-db-setup-1  Exited
+container queue-security-verify02-api-1 is unhealthy

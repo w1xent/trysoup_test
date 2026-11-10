@@ -15,7 +15,7 @@ import (
 	"soupqueue/internal/queue"
 )
 
-func Handler(s *queue.Store) http.Handler {
+func Handler(s *queue.Store, tokens map[string]string) (http.Handler, error) {
 	m := http.NewServeMux()
 	m.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		var ready bool
@@ -40,7 +40,7 @@ func Handler(s *queue.Store) http.Handler {
 			problem(w, http.StatusBadRequest, "expected name (1 to 200 bytes), duration_ms (1 to 60000) and optional should_fail")
 			return
 		}
-		j, created, err := s.Create(r.Context(), key, spec)
+		j, created, err := authenticatedStore(s, r).Create(r.Context(), key, spec)
 		if err != nil {
 			dbError(w, err)
 			return
@@ -66,7 +66,7 @@ func Handler(s *queue.Store) http.Handler {
 			problem(w, http.StatusBadRequest, "after must be nonnegative and limit between 1 and 100")
 			return
 		}
-		items, err := s.List(r.Context(), after, int(limit)+1)
+		items, err := authenticatedStore(s, r).List(r.Context(), after, int(limit)+1)
 		if err != nil {
 			dbError(w, err)
 			return
@@ -82,7 +82,7 @@ func Handler(s *queue.Store) http.Handler {
 		}{items, next})
 	})
 	for pattern, lookup := range map[string]funcID{
-		"GET /jobs/{id}": s.Get, "POST /jobs/{id}/cancel": s.Cancel,
+		"GET /jobs/{id}": (*queue.Store).Get, "POST /jobs/{id}/cancel": (*queue.Store).Cancel,
 	} {
 		m.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 			id, err := strconv.ParseInt(r.PathValue("id"), 10, 64)
@@ -90,7 +90,7 @@ func Handler(s *queue.Store) http.Handler {
 				problem(w, http.StatusBadRequest, "invalid job id")
 				return
 			}
-			j, err := lookup(r.Context(), id)
+			j, err := lookup(authenticatedStore(s, r), r.Context(), id)
 			if err != nil {
 				dbError(w, err)
 				return
@@ -98,10 +98,10 @@ func Handler(s *queue.Store) http.Handler {
 			reply(w, http.StatusOK, j)
 		})
 	}
-	return m
+	return protect(m, tokens)
 }
 
-type funcID func(context.Context, int64) (queue.Job, error)
+type funcID func(*queue.Store, context.Context, int64) (queue.Job, error)
 
 func validText(s string) bool {
 	return strings.TrimSpace(s) != "" && len(s) <= 200 && utf8.ValidString(s) && !strings.ContainsRune(s, 0)
@@ -121,6 +121,9 @@ func problem(w http.ResponseWriter, status int, message string) {
 
 func dbError(w http.ResponseWriter, err error) {
 	switch {
+	case errors.Is(err, queue.ErrQueueFull):
+		w.Header().Set("Retry-After", "1")
+		problem(w, http.StatusTooManyRequests, err.Error())
 	case errors.Is(err, queue.ErrConflict):
 		problem(w, http.StatusConflict, err.Error())
 	case errors.Is(err, sql.ErrNoRows):

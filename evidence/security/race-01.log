@@ -1,0 +1,192 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 575B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 1.05kB done
+#6 DONE 0.0s
+
+#7 [build 4/7] RUN go mod download
+#7 CACHED
+
+#8 [build 6/7] COPY internal ./internal
+#8 CACHED
+
+#9 [build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#9 CACHED
+
+#10 [build 3/7] COPY go.mod go.sum ./
+#10 CACHED
+
+#11 [build 5/7] COPY cmd ./cmd
+#11 CACHED
+
+#12 [build 2/7] WORKDIR /src
+#12 CACHED
+
+#13 [stage-1 1/1] COPY --from=build /queue /queue
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:f6bc3027f983f573f048fa801cd3a8049d1937d7c1571463dae9441fb9135f7c done
+#14 exporting config sha256:9d9ab4dfc4d51926892710fc2e6dc8d411698eba18538de90305ef622cced5b7 done
+#14 exporting attestation manifest sha256:597c28e9a8a1b8d05e668edc04b853a03b456fe83a27632bd1038d21603ded58 done
+#14 exporting manifest list sha256:8b5d2b9739fc064937f41a0ebf66ca4596357f83589bac63a7381486a11e6297 done
+#14 naming to docker.io/library/queue-security-verify02-bootstrap:latest done
+#14 unpacking to docker.io/library/queue-security-verify02-bootstrap:latest done
+#14 DONE 0.0s
+
+#15 resolving provenance for metadata file
+#15 DONE 0.0s
+ queue-security-verify02-bootstrap  Built
+ Container queue-security-verify02-bootstrap-1  Recreate
+ Container queue-security-verify02-bootstrap-1  Recreated
+ Container queue-security-verify02-db-1  Running
+ Container queue-security-verify02-bootstrap-1  Starting
+ Container queue-security-verify02-bootstrap-1  Started
+ Container queue-security-verify02-bootstrap-1  Waiting
+ Container queue-security-verify02-bootstrap-1  Exited
+ Container queue-security-verify02-db-1  Waiting
+ Container queue-security-verify02-db-1  Healthy
+ Container queue-security-verify02-db-setup-1  Starting
+ Container queue-security-verify02-db-setup-1  Started
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.05kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 1.05kB done
+#6 DONE 0.0s
+
+#7 [build 2/7] WORKDIR /src
+#7 CACHED
+
+#8 [build 3/7] COPY go.mod go.sum ./
+#8 CACHED
+
+#9 [build 4/7] RUN go mod download
+#9 CACHED
+
+#10 [build 5/7] COPY cmd ./cmd
+#10 CACHED
+
+#11 [build 6/7] COPY internal ./internal
+#11 CACHED
+
+#12 [build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 2.4s done
+#13 exporting manifest sha256:bfd563f0d287f37e77f8af5e20631a3e41a76c2781debfaf02675597a459d9df
+#13 exporting manifest sha256:bfd563f0d287f37e77f8af5e20631a3e41a76c2781debfaf02675597a459d9df done
+#13 exporting config sha256:46a0133648114bca10e27d703cccfcac7fd5ed11a5e2080b3e415313c96ca7dd done
+#13 exporting attestation manifest sha256:e3ac2d1d386b9a152f42e0b08a6cc185113faa71dfe1d2e2eb1fe2847f96d763 done
+#13 exporting manifest list sha256:d4ef6332fbf38922a1ead2536ee7b860efa1e47e9a9099b2e620ebe5aee2fdaa done
+#13 naming to docker.io/library/queue-security-verify02-checks:latest done
+#13 unpacking to docker.io/library/queue-security-verify02-checks:latest
+#13 unpacking to docker.io/library/queue-security-verify02-checks:latest 0.6s done
+#13 DONE 3.1s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+( 1/14) Installing libgcc (15.2.0-r5)
+( 2/14) Installing jansson (2.15.0-r0)
+( 3/14) Installing libstdc++ (15.2.0-r5)
+( 4/14) Installing zstd-libs (1.5.7-r2)
+( 5/14) Installing binutils (2.45.1-r1)
+( 6/14) Installing libgcc-static (15.2.0-r5)
+( 7/14) Installing libgomp (15.2.0-r5)
+( 8/14) Installing libatomic (15.2.0-r5)
+( 9/14) Installing gmp (6.3.0-r4)
+(10/14) Installing isl26 (0.26-r2)
+(11/14) Installing mpfr4 (4.2.2-r0)
+(12/14) Installing mpc1 (1.3.1-r1)
+(13/14) Installing gcc (15.2.0-r5)
+(14/14) Installing musl-dev (1.2.6-r3)
+Executing busybox-1.37.0-r31.trigger
+OK: 174.4 MiB in 31 packages
+?   	soupqueue/cmd/chaos	[no test files]
+?   	soupqueue/cmd/queue	[no test files]
+?   	soupqueue/internal/bootstrap	[no test files]
+?   	soupqueue/internal/config	[no test files]
+?   	soupqueue/internal/httpapi	[no test files]
+=== RUN   TestHTTPContract
+--- PASS: TestHTTPContract (0.10s)
+=== RUN   TestConcurrentClaimAndSkipLocked
+--- PASS: TestConcurrentClaimAndSkipLocked (0.12s)
+=== RUN   TestExpiredZombie
+--- PASS: TestExpiredZombie (0.08s)
+=== RUN   TestLeaseExpiresDuringRowLockWait
+--- PASS: TestLeaseExpiresDuringRowLockWait (1.60s)
+=== RUN   TestIdempotencyAcrossUncommittedInsert
+--- PASS: TestIdempotencyAcrossUncommittedInsert (0.06s)
+=== RUN   TestCancelCompleteRace
+    protocol_test.go:289: cancel replies by winning state: map[cancelled:47 succeeded:1]
+--- PASS: TestCancelCompleteRace (0.11s)
+=== RUN   TestEffectErrorRollsBackState
+--- PASS: TestEffectErrorRollsBackState (0.04s)
+=== RUN   TestWorkerClockSkew
+    protocol_test.go:324: worker clock 2000-01-01 00:00:00 +0000 UTC, PostgreSQL clock 2026-11-09 23:39:01.018231 +0000 UTC
+    protocol_test.go:324: worker clock 2059-12-17 00:00:00 +0000 UTC, PostgreSQL clock 2026-11-09 23:39:01.035631 +0000 UTC
+--- PASS: TestWorkerClockSkew (0.07s)
+=== RUN   TestHeartbeatDuringLongJob
+--- PASS: TestHeartbeatDuringLongJob (2.70s)
+=== RUN   TestAuthenticationAndOwnership
+--- PASS: TestAuthenticationAndOwnership (0.06s)
+=== RUN   TestConcurrentAdmissionAndReplayAtCapacity
+--- PASS: TestConcurrentAdmissionAndReplayAtCapacity (0.08s)
+=== RUN   TestQueueCountLimit
+--- PASS: TestQueueCountLimit (0.08s)
+=== RUN   TestApplicationDatabaseRoles
+--- PASS: TestApplicationDatabaseRoles (0.01s)
+=== RUN   TestGlobalQueueLimits
+=== RUN   TestGlobalQueueLimits/count
+=== RUN   TestGlobalQueueLimits/duration
+--- PASS: TestGlobalQueueLimits (0.07s)
+    --- PASS: TestGlobalQueueLimits/count (0.03s)
+    --- PASS: TestGlobalQueueLimits/duration (0.03s)
+=== RUN   TestLegacySchemaMigration
+--- PASS: TestLegacySchemaMigration (0.03s)
+=== RUN   TestHTTPReturns429AtCapacity
+--- PASS: TestHTTPReturns429AtCapacity (0.03s)
+=== RUN   TestRejectInsecureDatabaseMode
+--- PASS: TestRejectInsecureDatabaseMode (0.00s)
+=== RUN   TestUntrustedDatabaseCannotRequestPassword
+--- PASS: TestUntrustedDatabaseCannotRequestPassword (0.01s)
+=== RUN   TestMalformedDatabaseFrameReturnsError
+--- PASS: TestMalformedDatabaseFrameReturnsError (0.01s)
+PASS
+ok  	soupqueue/internal/queue	6.259s

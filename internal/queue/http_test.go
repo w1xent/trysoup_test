@@ -13,14 +13,22 @@ import (
 	"soupqueue/internal/queue"
 )
 
+const testToken = "test-token-alice-012345678901234567890123456789"
+
 func TestHTTPContract(t *testing.T) {
 	s, _ := database(t)
-	server := httptest.NewServer(httpapi.Handler(s))
+	handler, err := httpapi.Handler(s, map[string]string{"alice": testToken})
+	must(t, err)
+	server := httptest.NewServer(handler)
 	defer server.Close()
 	call := func(method, path, key, body string, want int) []byte {
 		t.Helper()
 		req, err := http.NewRequest(method, server.URL+path, strings.NewReader(body))
 		must(t, err)
+		req.Header.Set("Authorization", "Bearer "+testToken)
+		if method == "POST" {
+			req.Header.Set("Content-Type", "application/json")
+		}
 		if key != "" {
 			req.Header.Set("Idempotency-Key", key)
 		}

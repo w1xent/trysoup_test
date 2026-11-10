@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,13 +11,32 @@ import (
 	"syscall"
 	"time"
 
+	"soupqueue/internal/bootstrap"
+	"soupqueue/internal/config"
 	"soupqueue/internal/httpapi"
 	"soupqueue/internal/queue"
 )
 
 func main() {
 	if len(os.Args) != 2 {
-		log.Fatal("usage: queue api|worker|health")
+		log.Fatal("usage: queue api|worker|health|bootstrap|token")
+	}
+	if os.Args[1] == "bootstrap" {
+		if err := bootstrap.Run("/bootstrap"); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+	if os.Args[1] == "token" {
+		tokens, err := config.Tokens()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if tokens["operator"] == "" {
+			log.Fatal("operator token is not configured")
+		}
+		fmt.Println(tokens["operator"])
+		return
 	}
 	if os.Args[1] == "health" {
 		client := &http.Client{Timeout: 2 * time.Second}
@@ -30,7 +50,11 @@ func main() {
 		}
 		return
 	}
-	s, err := queue.Open(os.Getenv("DATABASE_URL"))
+	dsn, err := config.Value("DATABASE_URL")
+	if err != nil {
+		log.Fatal(err)
+	}
+	s, err := queue.Open(dsn)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -39,7 +63,19 @@ func main() {
 	defer stop()
 	switch os.Args[1] {
 	case "api":
-		server := &http.Server{Addr: ":8080", Handler: httpapi.Handler(s), ReadTimeout: 5 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second}
+		tokens, err := config.Tokens()
+		if err != nil {
+			log.Fatal(err)
+		}
+		handler, err := httpapi.Handler(s, tokens)
+		if err != nil {
+			log.Fatal(err)
+		}
+		addr := os.Getenv("HTTP_ADDR")
+		if addr == "" {
+			addr = "127.0.0.1:8080"
+		}
+		server := &http.Server{Addr: addr, Handler: handler, ReadTimeout: 5 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second}
 		stopped := make(chan struct{})
 		go func() {
 			<-ctx.Done()
@@ -50,7 +86,7 @@ func main() {
 			}
 			close(stopped)
 		}()
-		log.Print("listening on :8080")
+		log.Printf("listening on %s", addr)
 		if err := server.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 			log.Fatal(err)
 		}
@@ -58,6 +94,6 @@ func main() {
 	case "worker":
 		queue.Work(ctx, s)
 	default:
-		log.Fatal("usage: queue api|worker|health")
+		log.Fatal("usage: queue api|worker|health|bootstrap|token")
 	}
 }

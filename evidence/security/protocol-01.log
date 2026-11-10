@@ -1,0 +1,177 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 571B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 9.98kB done
+#6 DONE 0.0s
+
+#7 [build 2/7] WORKDIR /src
+#7 CACHED
+
+#8 [build 3/7] COPY go.mod go.sum ./
+#8 CACHED
+
+#9 [build 4/7] RUN go mod download
+#9 CACHED
+
+#10 [build 5/7] COPY cmd ./cmd
+#10 CACHED
+
+#11 [build 6/7] COPY internal ./internal
+#11 DONE 0.0s
+
+#12 [build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 DONE 4.4s
+
+#13 [stage-1 1/1] COPY --from=build /queue /queue
+#13 DONE 0.0s
+
+#14 exporting to image
+#14 exporting layers
+#14 exporting layers 0.3s done
+#14 exporting manifest sha256:bd97c287c28a1953265926cd611a4704155d26cf6039c6a92d5feb71e934076e
+#14 exporting manifest sha256:bd97c287c28a1953265926cd611a4704155d26cf6039c6a92d5feb71e934076e done
+#14 exporting config sha256:a0cbd3e94f38193e80040d3f05f364366b9d123f609a8348dbeb29b7279483ec done
+#14 exporting attestation manifest sha256:9c53a15d9ecedb9b073a2b71b6ecc34daf087a791431c5b07d3ecb6e3663bcb3 done
+#14 exporting manifest list sha256:d05ef5f05be2172827efff6c87e8ea59cd81f1d7f237e8f7832c0eb27e092ae8 done
+#14 naming to docker.io/library/queue-security-verify-bootstrap:latest done
+#14 unpacking to docker.io/library/queue-security-verify-bootstrap:latest 0.0s done
+#14 DONE 0.4s
+
+#15 resolving provenance for metadata file
+#15 DONE 0.0s
+ queue-security-verify-bootstrap  Built
+ Container queue-security-verify-bootstrap-1  Recreate
+ Container queue-security-verify-bootstrap-1  Recreated
+ Container queue-security-verify-db-1  Running
+ Container queue-security-verify-bootstrap-1  Starting
+ Container queue-security-verify-bootstrap-1  Started
+ Container queue-security-verify-bootstrap-1  Waiting
+ Container queue-security-verify-bootstrap-1  Exited
+ Container queue-security-verify-db-1  Waiting
+ Container queue-security-verify-db-1  Healthy
+ Container queue-security-verify-db-setup-1  Starting
+ Container queue-security-verify-db-setup-1  Started
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.05kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 1.05kB done
+#6 DONE 0.0s
+
+#7 [build 5/7] COPY cmd ./cmd
+#7 CACHED
+
+#8 [build 6/7] COPY internal ./internal
+#8 CACHED
+
+#9 [build 3/7] COPY go.mod go.sum ./
+#9 CACHED
+
+#10 [build 4/7] RUN go mod download
+#10 CACHED
+
+#11 [build 2/7] WORKDIR /src
+#11 CACHED
+
+#12 [build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 2.3s done
+#13 exporting manifest sha256:f71f3f49cf083511236e8c89136ca964ce23e3e1fca307330905cbee66140713
+#13 exporting manifest sha256:f71f3f49cf083511236e8c89136ca964ce23e3e1fca307330905cbee66140713 done
+#13 exporting config sha256:fdf458cac76a41c533492f4d0c92dad83ef6f6dff2d4a71269428cabab5d3a9c done
+#13 exporting attestation manifest sha256:1be74204b62471421184f910d725b781d55ef80cd5e89982fe12666b233cc8a5 done
+#13 exporting manifest list sha256:72fb10bb95096cf0744c299bd3924d4c68f8633bf489c9aec4e3ee2b2c29b513 done
+#13 naming to docker.io/library/queue-security-verify-checks:latest done
+#13 unpacking to docker.io/library/queue-security-verify-checks:latest
+#13 unpacking to docker.io/library/queue-security-verify-checks:latest 0.4s done
+#13 DONE 2.7s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+?   	soupqueue/cmd/chaos	[no test files]
+?   	soupqueue/cmd/queue	[no test files]
+?   	soupqueue/internal/bootstrap	[no test files]
+?   	soupqueue/internal/config	[no test files]
+?   	soupqueue/internal/httpapi	[no test files]
+=== RUN   TestHTTPContract
+    http_test.go:19: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestHTTPContract (0.00s)
+=== RUN   TestConcurrentClaimAndSkipLocked
+    protocol_test.go:103: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestConcurrentClaimAndSkipLocked (0.00s)
+=== RUN   TestExpiredZombie
+    protocol_test.go:143: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestExpiredZombie (0.00s)
+=== RUN   TestLeaseExpiresDuringRowLockWait
+    protocol_test.go:196: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestLeaseExpiresDuringRowLockWait (0.00s)
+=== RUN   TestIdempotencyAcrossUncommittedInsert
+    protocol_test.go:222: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestIdempotencyAcrossUncommittedInsert (0.00s)
+=== RUN   TestCancelCompleteRace
+    protocol_test.go:252: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestCancelCompleteRace (0.00s)
+=== RUN   TestEffectErrorRollsBackState
+    protocol_test.go:293: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestEffectErrorRollsBackState (0.00s)
+=== RUN   TestWorkerClockSkew
+    protocol_test.go:309: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestWorkerClockSkew (0.00s)
+=== RUN   TestHeartbeatDuringLongJob
+    protocol_test.go:336: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestHeartbeatDuringLongJob (0.00s)
+=== RUN   TestAuthenticationAndOwnership
+    security_test.go:18: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestAuthenticationAndOwnership (0.00s)
+=== RUN   TestConcurrentAdmissionAndReplayAtCapacity
+    security_test.go:90: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestConcurrentAdmissionAndReplayAtCapacity (0.00s)
+=== RUN   TestQueueCountLimit
+    security_test.go:135: failed to connect to `user=queue_admin database=queue`: 172.23.0.2:5432 (db): failed SASL auth: FATAL: SCRAM channel binding negotiation error (SQLSTATE 28000)
+--- FAIL: TestQueueCountLimit (0.00s)
+=== RUN   TestRejectInsecureDatabaseMode
+--- PASS: TestRejectInsecureDatabaseMode (0.00s)
+=== RUN   TestUntrustedDatabaseCannotRequestPassword
+--- PASS: TestUntrustedDatabaseCannotRequestPassword (0.00s)
+=== RUN   TestMalformedDatabaseFrameReturnsError
+--- PASS: TestMalformedDatabaseFrameReturnsError (0.00s)
+FAIL
+FAIL	soupqueue/internal/queue	0.027s
+FAIL
+

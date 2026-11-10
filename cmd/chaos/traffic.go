@@ -37,6 +37,7 @@ type receipt struct {
 
 type traffic struct {
 	base            string
+	token           string
 	client          *http.Client
 	mu              sync.Mutex
 	codes           map[int]int
@@ -52,6 +53,10 @@ func (t *traffic) request(ctx context.Context, method, path, key string, body []
 	req, err := http.NewRequestWithContext(ctx, method, t.base+path, bytes.NewReader(body))
 	if err != nil {
 		return 0, err
+	}
+	req.Header.Set("Authorization", "Bearer "+t.token)
+	if method == "POST" {
+		req.Header.Set("Content-Type", "application/json")
 	}
 	if key != "" {
 		req.Header.Set("Idempotency-Key", key)
@@ -93,12 +98,24 @@ func (t *traffic) submit(ctx context.Context, want receipt, duplicate, cancel bo
 		return want, err
 	}
 	post := func() response {
-		var result response
-		result.code, result.err = t.request(ctx, "POST", "/jobs", want.key, body, due, &result.job)
-		if result.err == nil && (result.job.ID <= 0 || result.job.Key != want.key || result.job.spec != want.spec) {
-			result.err = fmt.Errorf("unexpected create receipt: %+v", result.job)
+		retryCtx, cancel := context.WithTimeout(ctx, 3*time.Minute)
+		defer cancel()
+		for {
+			var result response
+			result.code, result.err = t.request(retryCtx, "POST", "/jobs", want.key, body, due, &result.job)
+			if result.code != http.StatusTooManyRequests {
+				if result.err == nil && (result.job.ID <= 0 || result.job.Key != want.key || result.job.spec != want.spec) {
+					result.err = fmt.Errorf("unexpected create receipt: %+v", result.job)
+				}
+				return result
+			}
+			// Rejected submissions have not been accepted into the queue.
+			select {
+			case <-retryCtx.Done():
+				return response{err: retryCtx.Err()}
+			case <-time.After(time.Second):
+			}
 		}
-		return result
 	}
 	// Simultaneous identical POSTs can arrive in either order.
 	repeated := make(chan response, 1)
@@ -196,12 +213,12 @@ dispatch:
 	}
 	wg.Wait()
 	span := time.Since(start)
-	r.log.Printf("traffic offered_rps=%d completed_rps=%.2f seconds=%.3f requests=%d statuses=%v", r.rate, float64(len(t.wire))/span.Seconds(), span.Seconds(), len(t.wire), t.codes)
+	r.log.Printf("traffic offered_rps=%d completed_rps=%.2f seconds=%.3f planned_requests=%d requests=%d statuses=%v", r.rate, float64(len(t.wire))/span.Seconds(), span.Seconds(), offered, len(t.wire), t.codes)
 	r.log.Printf("latency_ms http %s; from_scheduled %s", percentiles(t.wire), percentiles(t.scheduled))
 	if err := context.Cause(ctx); err != nil {
 		return nil, err
 	}
-	if len(t.wire) != offered {
+	if len(t.wire) < offered {
 		return nil, fmt.Errorf("offered %d requests, measured %d", offered, len(t.wire))
 	}
 	return manifest, nil

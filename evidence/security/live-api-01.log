@@ -1,0 +1,24 @@
+Anonymous list status=401
+security-smoke-1 status=201
+Cross-origin cancel status=403
+security-smoke-2 status=201
+Cross-origin cancel status=403
+security-smoke-3 status=429
+{"id":1,"key":"security-smoke-1","name":"security-smoke","duration_ms":60000,"should_fail":false,"state":"cancelled","attempt":1}
+{"id":2,"key":"security-smoke-2","name":"security-smoke","duration_ms":60000,"should_fail":false,"state":"cancelled","attempt":1}
+   rolname    | rolsuper | rolcreatedb | rolcreaterole 
+--------------+----------+-------------+---------------
+ queue_api    | f        | f           | f
+ queue_worker | f        | f           | f
+(2 rows)
+
+   usename    | ssl 
+--------------+-----
+ queue_worker | t
+ queue_worker | t
+ queue_worker | t
+ queue_worker | t
+ queue_api    | t
+(5 rows)
+
+RESULT PASS

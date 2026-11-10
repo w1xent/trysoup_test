@@ -1,0 +1,487 @@
+2026/11/09 22:50:36.730797 raw=evidence/20261109T225036Z-chaos-seed7410-sqiubslvwo.log profile=chaos seed=7410 unique=10000 target_http_rps=100 project=soup-chaos-sqiubslvwo
+2026/11/09 22:50:43.386137 $ docker compose -p soup-chaos-sqiubslvwo up --build -d --wait --scale worker=8
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.50kB done
+#1 DONE 0.0s
+
+#2 [bootstrap internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [worker internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [bootstrap internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [api build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [api internal] load build context
+#6 transferring context: 1.05kB done
+#6 DONE 0.0s
+
+#7 [bootstrap build 5/7] COPY cmd ./cmd
+#7 CACHED
+
+#8 [bootstrap build 3/7] COPY go.mod go.sum ./
+#8 CACHED
+
+#9 [bootstrap build 4/7] RUN go mod download
+#9 CACHED
+
+#10 [bootstrap build 2/7] WORKDIR /src
+#10 CACHED
+
+#11 [bootstrap build 6/7] COPY internal ./internal
+#11 CACHED
+
+#12 [bootstrap build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 CACHED
+
+#13 [bootstrap stage-1 1/1] COPY --from=build /queue /queue
+#13 CACHED
+
+#14 [bootstrap] exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:36f7081049a379480331e42cbcd0d8428bd7c30bab66872585f53629a5ef8e47 done
+#14 exporting config sha256:c013ea117c340d68f72ff3ac271d8ee96e2f41949feefb96f1809299a52a26d3 done
+#14 exporting attestation manifest sha256:477bbef2f225567c2abb016ff85b6cc06f209da3be994dcc4d07d0c637ee1a85 0.0s done
+#14 exporting manifest list sha256:c7905b4634e37312af99bf55b4d3726851e9f4645354f45e640fb9f2f1c4e3e6 done
+#14 naming to docker.io/library/soup-chaos-sqiubslvwo-bootstrap:latest done
+#14 unpacking to docker.io/library/soup-chaos-sqiubslvwo-bootstrap:latest done
+#14 DONE 0.1s
+
+#15 [api] exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:3261ae6e169b7df8293acdd3dd12374bc4f0c02b792ee769f6db7ea4c965891f done
+#15 exporting config sha256:ee9c30cc119ee992e9718c76a0d013ef805a362572ce2ea60ac981274acc6228 done
+#15 exporting attestation manifest sha256:99f0ffab777406ec185959310401ac79ecfbb6376f3f3e9f1edf7727ddba241a 0.0s done
+#15 exporting manifest list sha256:330c104a6641a695628202d3664d556402a9cdfbf4a253ea03eca9705a505bb5 done
+#15 naming to docker.io/library/soup-chaos-sqiubslvwo-api:latest done
+#15 unpacking to docker.io/library/soup-chaos-sqiubslvwo-api:latest done
+#15 DONE 0.1s
+
+#16 [worker] exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:afe0f448c29a11e4777d8839f325951ffd6eb9d3ebf8bb7280ecd0e361e67931 done
+#16 exporting config sha256:f65c21301340382db71db2cca057f50eb3237e89078c41553a4a6b24c7a577a2 done
+#16 exporting attestation manifest sha256:becec99fe4784aee81c7c5b3622db802f48e455d4864a89190131049c827f85f 0.0s done
+#16 exporting manifest list sha256:0d5c8d22eec1a7d4f135dd71f0c96fe34de8d1a0eba705af656de919bab5ee63 done
+#16 naming to docker.io/library/soup-chaos-sqiubslvwo-worker:latest done
+#16 unpacking to docker.io/library/soup-chaos-sqiubslvwo-worker:latest done
+#16 DONE 0.1s
+
+#17 [bootstrap] resolving provenance for metadata file
+#17 DONE 0.0s
+
+#18 [api] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#19 [worker] resolving provenance for metadata file
+#19 DONE 0.0s
+ soup-chaos-sqiubslvwo-api  Built
+ soup-chaos-sqiubslvwo-worker  Built
+ soup-chaos-sqiubslvwo-bootstrap  Built
+ Network soup-chaos-sqiubslvwo_default  Creating
+ Network soup-chaos-sqiubslvwo_default  Created
+ Volume soup-chaos-sqiubslvwo_worker_config  Creating
+ Volume soup-chaos-sqiubslvwo_worker_config  Created
+ Volume soup-chaos-sqiubslvwo_api_config  Creating
+ Volume soup-chaos-sqiubslvwo_api_config  Created
+ Volume soup-chaos-sqiubslvwo_db_config  Creating
+ Volume soup-chaos-sqiubslvwo_db_config  Created
+ Volume soup-chaos-sqiubslvwo_data  Creating
+ Volume soup-chaos-sqiubslvwo_data  Created
+ Volume soup-chaos-sqiubslvwo_db_socket  Creating
+ Volume soup-chaos-sqiubslvwo_db_socket  Created
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Creating
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Created
+ Container soup-chaos-sqiubslvwo-db-1  Creating
+ Container soup-chaos-sqiubslvwo-db-1  Created
+ Container soup-chaos-sqiubslvwo-db-setup-1  Creating
+ Container soup-chaos-sqiubslvwo-db-setup-1  Created
+ Container soup-chaos-sqiubslvwo-api-1  Creating
+ Container soup-chaos-sqiubslvwo-worker-8  Creating
+ Container soup-chaos-sqiubslvwo-worker-2  Creating
+ Container soup-chaos-sqiubslvwo-worker-1  Creating
+ Container soup-chaos-sqiubslvwo-worker-5  Creating
+ Container soup-chaos-sqiubslvwo-worker-4  Creating
+ Container soup-chaos-sqiubslvwo-worker-3  Creating
+ Container soup-chaos-sqiubslvwo-worker-6  Creating
+ Container soup-chaos-sqiubslvwo-worker-7  Creating
+ Container soup-chaos-sqiubslvwo-worker-4  Created
+ Container soup-chaos-sqiubslvwo-api-1  Created
+ Container soup-chaos-sqiubslvwo-worker-6  Created
+ Container soup-chaos-sqiubslvwo-worker-5  Created
+ Container soup-chaos-sqiubslvwo-worker-7  Created
+ Container soup-chaos-sqiubslvwo-worker-3  Created
+ Container soup-chaos-sqiubslvwo-worker-8  Created
+ Container soup-chaos-sqiubslvwo-worker-1  Created
+ Container soup-chaos-sqiubslvwo-worker-2  Created
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Starting
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Started
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Waiting
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Exited
+ Container soup-chaos-sqiubslvwo-db-1  Starting
+ Container soup-chaos-sqiubslvwo-db-1  Started
+ Container soup-chaos-sqiubslvwo-db-1  Waiting
+ Container soup-chaos-sqiubslvwo-db-1  Healthy
+ Container soup-chaos-sqiubslvwo-db-setup-1  Starting
+ Container soup-chaos-sqiubslvwo-db-setup-1  Started
+ Container soup-chaos-sqiubslvwo-db-setup-1  Waiting
+ Container soup-chaos-sqiubslvwo-db-setup-1  Waiting
+ Container soup-chaos-sqiubslvwo-db-setup-1  Exited
+ Container soup-chaos-sqiubslvwo-api-1  Starting
+ Container soup-chaos-sqiubslvwo-db-setup-1  Exited
+ Container soup-chaos-sqiubslvwo-worker-1  Starting
+ Container soup-chaos-sqiubslvwo-api-1  Started
+ Container soup-chaos-sqiubslvwo-worker-1  Started
+ Container soup-chaos-sqiubslvwo-worker-8  Starting
+ Container soup-chaos-sqiubslvwo-worker-8  Started
+ Container soup-chaos-sqiubslvwo-worker-6  Starting
+ Container soup-chaos-sqiubslvwo-worker-6  Started
+ Container soup-chaos-sqiubslvwo-worker-2  Starting
+ Container soup-chaos-sqiubslvwo-worker-2  Started
+ Container soup-chaos-sqiubslvwo-worker-3  Starting
+ Container soup-chaos-sqiubslvwo-worker-3  Started
+ Container soup-chaos-sqiubslvwo-worker-7  Starting
+ Container soup-chaos-sqiubslvwo-worker-7  Started
+ Container soup-chaos-sqiubslvwo-worker-5  Starting
+ Container soup-chaos-sqiubslvwo-worker-5  Started
+ Container soup-chaos-sqiubslvwo-worker-4  Starting
+ Container soup-chaos-sqiubslvwo-worker-4  Started
+ Container soup-chaos-sqiubslvwo-db-1  Waiting
+ Container soup-chaos-sqiubslvwo-db-setup-1  Waiting
+ Container soup-chaos-sqiubslvwo-api-1  Waiting
+ Container soup-chaos-sqiubslvwo-worker-1  Waiting
+ Container soup-chaos-sqiubslvwo-worker-8  Waiting
+ Container soup-chaos-sqiubslvwo-worker-6  Waiting
+ Container soup-chaos-sqiubslvwo-worker-2  Waiting
+ Container soup-chaos-sqiubslvwo-worker-3  Waiting
+ Container soup-chaos-sqiubslvwo-worker-7  Waiting
+ Container soup-chaos-sqiubslvwo-worker-5  Waiting
+ Container soup-chaos-sqiubslvwo-worker-4  Waiting
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Waiting
+ Container soup-chaos-sqiubslvwo-worker-1  Healthy
+ Container soup-chaos-sqiubslvwo-worker-8  Healthy
+ Container soup-chaos-sqiubslvwo-worker-6  Healthy
+ Container soup-chaos-sqiubslvwo-worker-2  Healthy
+ Container soup-chaos-sqiubslvwo-worker-3  Healthy
+ Container soup-chaos-sqiubslvwo-worker-7  Healthy
+ Container soup-chaos-sqiubslvwo-worker-5  Healthy
+ Container soup-chaos-sqiubslvwo-worker-4  Healthy
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Exited
+ Container soup-chaos-sqiubslvwo-db-setup-1  Exited
+ Container soup-chaos-sqiubslvwo-db-1  Healthy
+ Container soup-chaos-sqiubslvwo-api-1  Healthy
+result=<nil>
+2026/11/09 22:50:43.610510 api=http://127.0.0.1:55009 workers=[soup-chaos-sqiubslvwo-worker-1 soup-chaos-sqiubslvwo-worker-2 soup-chaos-sqiubslvwo-worker-3 soup-chaos-sqiubslvwo-worker-4 soup-chaos-sqiubslvwo-worker-5 soup-chaos-sqiubslvwo-worker-6 soup-chaos-sqiubslvwo-worker-7 soup-chaos-sqiubslvwo-worker-8] db=PostgreSQL 17.11 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit|0|0
+2026/11/09 22:50:45.882944 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:50:47.835059 SIGKILL victim=soup-chaos-sqiubslvwo-worker-5 exit=137 restarted=true
+2026/11/09 22:50:49.828466 SIGKILL victim=soup-chaos-sqiubslvwo-worker-4 exit=137 restarted=true
+2026/11/09 22:50:51.873543 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:50:53.839701 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 22:50:55.864039 SIGKILL victim=soup-chaos-sqiubslvwo-worker-4 exit=137 restarted=true
+2026/11/09 22:50:57.866154 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:50:59.012901 offered unique=1000 requests_dispatched=1534
+2026/11/09 22:50:59.858087 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:51:01.911374 SIGKILL victim=soup-chaos-sqiubslvwo-worker-2 exit=137 restarted=true
+2026/11/09 22:51:03.816936 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:51:05.836912 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:51:07.908502 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 22:51:09.864587 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:51:11.926146 SIGKILL victim=soup-chaos-sqiubslvwo-worker-4 exit=137 restarted=true
+2026/11/09 22:51:13.856461 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:51:14.351439 offered unique=2000 requests_dispatched=3067
+2026/11/09 22:51:15.874018 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:51:17.885512 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 22:51:19.865969 SIGKILL victim=soup-chaos-sqiubslvwo-worker-2 exit=137 restarted=true
+2026/11/09 22:51:21.871271 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:51:23.821723 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:51:25.854982 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:51:27.821970 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:51:29.682645 offered unique=3000 requests_dispatched=4600
+2026/11/09 22:51:29.888078 SIGKILL victim=soup-chaos-sqiubslvwo-worker-1 exit=137 restarted=true
+2026/11/09 22:51:31.837352 SIGKILL victim=soup-chaos-sqiubslvwo-worker-2 exit=137 restarted=true
+2026/11/09 22:51:34.077368 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:51:36.089276 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:51:37.871123 SIGKILL victim=soup-chaos-sqiubslvwo-worker-1 exit=137 restarted=true
+2026/11/09 22:51:39.883449 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 22:51:41.862384 SIGKILL victim=soup-chaos-sqiubslvwo-worker-5 exit=137 restarted=true
+2026/11/09 22:51:43.865346 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 22:51:45.012914 offered unique=4000 requests_dispatched=6134
+2026/11/09 22:51:45.889662 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:51:47.851491 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 22:51:49.842199 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:51:51.893968 SIGKILL victim=soup-chaos-sqiubslvwo-worker-2 exit=137 restarted=true
+2026/11/09 22:51:53.869306 SIGKILL victim=soup-chaos-sqiubslvwo-worker-4 exit=137 restarted=true
+2026/11/09 22:51:55.891481 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:51:57.968314 SIGKILL victim=soup-chaos-sqiubslvwo-worker-5 exit=137 restarted=true
+2026/11/09 22:51:59.846967 SIGKILL victim=soup-chaos-sqiubslvwo-worker-5 exit=137 restarted=true
+2026/11/09 22:52:00.351326 offered unique=5000 requests_dispatched=7667
+2026/11/09 22:52:01.958825 SIGKILL victim=soup-chaos-sqiubslvwo-worker-2 exit=137 restarted=true
+2026/11/09 22:52:03.860409 SIGKILL victim=soup-chaos-sqiubslvwo-worker-1 exit=137 restarted=true
+2026/11/09 22:52:05.878107 SIGKILL victim=soup-chaos-sqiubslvwo-worker-1 exit=137 restarted=true
+2026/11/09 22:52:07.893507 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:52:09.869262 SIGKILL victim=soup-chaos-sqiubslvwo-worker-2 exit=137 restarted=true
+2026/11/09 22:52:11.891554 SIGKILL victim=soup-chaos-sqiubslvwo-worker-1 exit=137 restarted=true
+2026/11/09 22:52:13.847141 SIGKILL victim=soup-chaos-sqiubslvwo-worker-4 exit=137 restarted=true
+2026/11/09 22:52:15.682735 offered unique=6000 requests_dispatched=9200
+2026/11/09 22:52:15.890196 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:52:17.871417 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:52:19.906097 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:52:21.852465 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 22:52:23.907053 SIGKILL victim=soup-chaos-sqiubslvwo-worker-1 exit=137 restarted=true
+2026/11/09 22:52:25.875705 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:52:30.217443 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 22:52:30.573786 SIGKILL victim=soup-chaos-sqiubslvwo-worker-8 exit=137 restarted=true
+2026/11/09 22:52:31.011976 offered unique=7000 requests_dispatched=10734
+2026/11/09 22:52:32.041992 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 22:52:33.897632 SIGKILL victim=soup-chaos-sqiubslvwo-worker-7 exit=137 restarted=true
+2026/11/09 23:02:32.591561 SIGKILL victim=soup-chaos-sqiubslvwo-worker-6 exit=137 restarted=true
+2026/11/09 23:02:32.988293 traffic offered_rps=100 completed_rps=99.03 seconds=114.862 requests=11375 statuses=map[200:3949 201:7425 429:1]
+2026/11/09 23:02:32.991213 latency_ms http p50=1.62 p95=55.82 p99=1229.16 max=2630.07; from_scheduled p50=3.39 p95=368.81 p99=2722.54 max=3780.79
+2026/11/09 23:02:33.046674 SIGKILL victim=soup-chaos-sqiubslvwo-worker-3 exit=137 restarted=true
+2026/11/09 23:02:33.047266 test error: POST /jobs key="training-7439" status=429 body={"error":"queue capacity exceeded"}
+2026/11/09 23:02:33.337892 $ docker compose -p soup-chaos-sqiubslvwo logs --no-color --tail 80
+api-1  | 2026/11/09 22:50:41 listening on 0.0.0.0:8080
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+api-1  | 2026/11/09 22:52:38 database request: context canceled
+db-1   | 2026-11-09 22:50:39.733 UTC [1] LOG:  database system is ready to accept connections
+db-1   | 2026-11-09 22:50:45.649 UTC [79] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:50:47.647 UTC [83] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:50:49.639 UTC [84] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:50:51.643 UTC [82] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:50:53.637 UTC [81] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:50:55.654 UTC [152] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:50:57.642 UTC [121] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:50:59.650 UTC [167] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:01.671 UTC [80] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:03.637 UTC [212] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:05.640 UTC [225] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:07.644 UTC [182] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:09.652 UTC [78] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:11.657 UTC [197] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:13.640 UTC [248] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:15.652 UTC [263] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:17.650 UTC [278] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:19.647 UTC [240] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:21.648 UTC [325] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:23.634 UTC [340] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:25.644 UTC [399] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:27.640 UTC [295] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:29.644 UTC [77] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:31.628 UTC [370] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:33.660 UTC [429] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:35.661 UTC [478] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:37.637 UTC [444] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:39.640 UTC [355] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:41.639 UTC [136] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:43.642 UTC [517] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:45.656 UTC [493] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:47.647 UTC [554] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:49.642 UTC [569] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:51.650 UTC [452] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:53.657 UTC [310] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:55.656 UTC [414] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:57.665 UTC [540] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:51:59.642 UTC [657] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:01.651 UTC [613] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:03.649 UTC [501] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:05.644 UTC [695] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:07.653 UTC [385] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:09.669 UTC [680] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:11.652 UTC [709] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:13.635 UTC [628] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:15.660 UTC [599] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:17.650 UTC [643] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:19.648 UTC [724] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:21.657 UTC [800] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:23.639 UTC [755] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:25.638 UTC [785] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:29.368 UTC [815] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:30.250 UTC [858] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:31.630 UTC [584] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:33.648 UTC [830] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:37.493 UTC [881] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:38.214 UTC [897] LOG:  could not receive data from client: Connection reset by peer
+db-1   | 2026-11-09 22:52:38.561 UTC [923] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.561 UTC [923] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.564 UTC [920] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.564 UTC [920] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.567 UTC [919] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.567 UTC [919] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.568 UTC [925] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.568 UTC [925] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.570 UTC [525] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.570 UTC [525] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.571 UTC [872] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.571 UTC [872] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.572 UTC [921] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.572 UTC [921] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.574 UTC [867] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.574 UTC [867] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.575 UTC [922] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.575 UTC [922] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.577 UTC [873] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.577 UTC [873] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-1   | 2026-11-09 22:52:38.578 UTC [926] ERROR:  canceling statement due to user request
+db-1   | 2026-11-09 22:52:38.578 UTC [926] STATEMENT:  SELECT pg_advisory_xact_lock(73124511)
+db-setup-1  | BEGIN
+db-setup-1  | ALTER ROLE
+db-setup-1  | CREATE ROLE
+db-setup-1  | CREATE ROLE
+db-setup-1  | ALTER ROLE
+db-setup-1  | ALTER ROLE
+db-setup-1  | SET
+db-setup-1  | psql:/setup/schema.sql:16: NOTICE:  column "owner_id" of relation "jobs" already exists, skipping
+db-setup-1  | CREATE TABLE
+db-setup-1  | ALTER TABLE
+db-setup-1  | psql:/setup/schema.sql:17: NOTICE:  constraint "jobs_request_key_key" of relation "jobs" does not exist, skipping
+db-setup-1  | ALTER TABLE
+db-setup-1  | CREATE INDEX
+db-setup-1  | CREATE INDEX
+db-setup-1  | CREATE INDEX
+db-setup-1  | CREATE TABLE
+db-setup-1  | ALTER DATABASE
+db-setup-1  | ALTER SCHEMA
+db-setup-1  | ALTER TABLE
+db-setup-1  | ALTER TABLE
+db-setup-1  | ALTER SEQUENCE
+db-setup-1  | REVOKE
+db-setup-1  | GRANT
+db-setup-1  | REVOKE
+db-setup-1  | GRANT
+db-setup-1  | REVOKE
+db-setup-1  | REVOKE
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | GRANT
+db-setup-1  | COMMIT
+result=<nil>
+2026/11/09 23:02:39.102874 $ docker compose -p soup-chaos-sqiubslvwo down -v --rmi local --timeout 5
+ Container soup-chaos-sqiubslvwo-api-1  Stopping
+ Container soup-chaos-sqiubslvwo-worker-4  Stopping
+ Container soup-chaos-sqiubslvwo-worker-2  Stopping
+ Container soup-chaos-sqiubslvwo-worker-7  Stopping
+ Container soup-chaos-sqiubslvwo-worker-5  Stopping
+ Container soup-chaos-sqiubslvwo-worker-3  Stopping
+ Container soup-chaos-sqiubslvwo-worker-1  Stopping
+ Container soup-chaos-sqiubslvwo-worker-6  Stopping
+ Container soup-chaos-sqiubslvwo-worker-8  Stopping
+ Container soup-chaos-sqiubslvwo-worker-7  Stopped
+ Container soup-chaos-sqiubslvwo-worker-7  Removing
+ Container soup-chaos-sqiubslvwo-worker-4  Stopped
+ Container soup-chaos-sqiubslvwo-worker-4  Removing
+ Container soup-chaos-sqiubslvwo-worker-7  Removed
+ Container soup-chaos-sqiubslvwo-worker-4  Removed
+ Container soup-chaos-sqiubslvwo-worker-3  Stopped
+ Container soup-chaos-sqiubslvwo-worker-3  Removing
+ Container soup-chaos-sqiubslvwo-worker-2  Stopped
+ Container soup-chaos-sqiubslvwo-worker-2  Removing
+ Container soup-chaos-sqiubslvwo-worker-3  Removed
+ Container soup-chaos-sqiubslvwo-worker-6  Stopped
+ Container soup-chaos-sqiubslvwo-worker-6  Removing
+ Container soup-chaos-sqiubslvwo-worker-2  Removed
+ Container soup-chaos-sqiubslvwo-worker-6  Removed
+ Container soup-chaos-sqiubslvwo-worker-8  Stopped
+ Container soup-chaos-sqiubslvwo-worker-8  Removing
+ Container soup-chaos-sqiubslvwo-api-1  Stopped
+ Container soup-chaos-sqiubslvwo-api-1  Removing
+ Container soup-chaos-sqiubslvwo-worker-8  Removed
+ Container soup-chaos-sqiubslvwo-worker-5  Stopped
+ Container soup-chaos-sqiubslvwo-worker-5  Removing
+ Container soup-chaos-sqiubslvwo-api-1  Removed
+ Container soup-chaos-sqiubslvwo-worker-1  Stopped
+ Container soup-chaos-sqiubslvwo-worker-1  Removing
+ Container soup-chaos-sqiubslvwo-worker-5  Removed
+ Container soup-chaos-sqiubslvwo-worker-1  Removed
+ Container soup-chaos-sqiubslvwo-db-setup-1  Stopping
+ Container soup-chaos-sqiubslvwo-db-setup-1  Stopped
+ Container soup-chaos-sqiubslvwo-db-setup-1  Removing
+ Container soup-chaos-sqiubslvwo-db-setup-1  Removed
+ Container soup-chaos-sqiubslvwo-db-1  Stopping
+ Container soup-chaos-sqiubslvwo-db-1  Stopped
+ Container soup-chaos-sqiubslvwo-db-1  Removing
+ Container soup-chaos-sqiubslvwo-db-1  Removed
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Stopping
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Stopped
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Removing
+ Container soup-chaos-sqiubslvwo-bootstrap-1  Removed
+ Image soup-chaos-sqiubslvwo-worker:latest  Removing
+ Image soup-chaos-sqiubslvwo-api:latest  Removing
+ Image soup-chaos-sqiubslvwo-bootstrap:latest  Removing
+ Volume soup-chaos-sqiubslvwo_worker_config  Removing
+ Network soup-chaos-sqiubslvwo_default  Removing
+ Volume soup-chaos-sqiubslvwo_db_socket  Removing
+ Volume soup-chaos-sqiubslvwo_db_config  Removing
+ Volume soup-chaos-sqiubslvwo_data  Removing
+ Volume soup-chaos-sqiubslvwo_api_config  Removing
+ Volume soup-chaos-sqiubslvwo_db_socket  Removed
+ Volume soup-chaos-sqiubslvwo_db_config  Removed
+ Image soup-chaos-sqiubslvwo-worker:latest  Removed
+ Volume soup-chaos-sqiubslvwo_api_config  Removed
+ Image soup-chaos-sqiubslvwo-api:latest  Removed
+ Volume soup-chaos-sqiubslvwo_data  Removed
+ Volume soup-chaos-sqiubslvwo_worker_config  Removed
+ Image soup-chaos-sqiubslvwo-bootstrap:latest  Removed
+ Network soup-chaos-sqiubslvwo_default  Removed
+result=<nil>
+2026/11/09 23:02:39.103026 RESULT FAILED

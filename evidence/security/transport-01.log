@@ -1,0 +1,52 @@
+?   	soupqueue/cmd/chaos	[no test files]
+?   	soupqueue/cmd/queue	[no test files]
+?   	soupqueue/internal/bootstrap	[no test files]
+?   	soupqueue/internal/config	[no test files]
+?   	soupqueue/internal/httpapi	[no test files]
+=== RUN   TestHTTPContract
+    http_test.go:19: integration test requires TEST_DATABASE_URL
+--- SKIP: TestHTTPContract (0.00s)
+=== RUN   TestConcurrentClaimAndSkipLocked
+    protocol_test.go:103: integration test requires TEST_DATABASE_URL
+--- SKIP: TestConcurrentClaimAndSkipLocked (0.00s)
+=== RUN   TestExpiredZombie
+    protocol_test.go:143: integration test requires TEST_DATABASE_URL
+--- SKIP: TestExpiredZombie (0.00s)
+=== RUN   TestLeaseExpiresDuringRowLockWait
+    protocol_test.go:196: integration test requires TEST_DATABASE_URL
+--- SKIP: TestLeaseExpiresDuringRowLockWait (0.00s)
+=== RUN   TestIdempotencyAcrossUncommittedInsert
+    protocol_test.go:222: integration test requires TEST_DATABASE_URL
+--- SKIP: TestIdempotencyAcrossUncommittedInsert (0.00s)
+=== RUN   TestCancelCompleteRace
+    protocol_test.go:252: integration test requires TEST_DATABASE_URL
+--- SKIP: TestCancelCompleteRace (0.00s)
+=== RUN   TestEffectErrorRollsBackState
+    protocol_test.go:293: integration test requires TEST_DATABASE_URL
+--- SKIP: TestEffectErrorRollsBackState (0.00s)
+=== RUN   TestWorkerClockSkew
+    protocol_test.go:309: integration test requires TEST_DATABASE_URL
+--- SKIP: TestWorkerClockSkew (0.00s)
+=== RUN   TestHeartbeatDuringLongJob
+    protocol_test.go:336: integration test requires TEST_DATABASE_URL
+--- SKIP: TestHeartbeatDuringLongJob (0.00s)
+=== RUN   TestAuthenticationAndOwnership
+    security_test.go:18: integration test requires TEST_DATABASE_URL
+--- SKIP: TestAuthenticationAndOwnership (0.00s)
+=== RUN   TestConcurrentAdmissionAndReplayAtCapacity
+    security_test.go:90: integration test requires TEST_DATABASE_URL
+--- SKIP: TestConcurrentAdmissionAndReplayAtCapacity (0.00s)
+=== RUN   TestQueueCountLimit
+    security_test.go:135: integration test requires TEST_DATABASE_URL
+--- SKIP: TestQueueCountLimit (0.00s)
+=== RUN   TestRejectInsecureDatabaseMode
+--- PASS: TestRejectInsecureDatabaseMode (0.00s)
+=== RUN   TestUntrustedDatabaseCannotRequestPassword
+    transport_test.go:92: listen tcp 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestUntrustedDatabaseCannotRequestPassword (0.00s)
+=== RUN   TestMalformedDatabaseFrameReturnsError
+    transport_test.go:116: listen tcp 127.0.0.1:0: bind: operation not permitted
+--- FAIL: TestMalformedDatabaseFrameReturnsError (0.00s)
+FAIL
+FAIL	soupqueue/internal/queue	0.686s
+FAIL
