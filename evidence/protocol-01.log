@@ -1,0 +1,82 @@
+ Container soup-review-1109a-db-1  Running
+#1 [internal] load local bake definitions
+#1 reading from stdin 562B done
+#1 DONE 0.0s
+
+#2 [build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#2 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#2 DONE 0.0s
+
+#3 [build 2/7] WORKDIR /src
+#3 CACHED
+
+#4 [build 3/7] COPY go.mod go.sum ./
+#4 DONE 0.0s
+
+#5 [internal] load build definition from Dockerfile
+#5 transferring dockerfile: 311B done
+#5 DONE 0.0s
+
+#6 [internal] load metadata for docker.io/library/golang:1.26-alpine
+#6 DONE 0.0s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 94B done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 25.67kB done
+#8 DONE 0.0s
+
+#9 [build 4/7] RUN go mod download
+#9 DONE 2.1s
+
+#10 [build 5/7] COPY cmd ./cmd
+#10 DONE 0.0s
+
+#11 [build 6/7] COPY internal ./internal
+#11 DONE 0.0s
+
+#12 [build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 DONE 3.8s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 2.0s done
+#13 exporting manifest sha256:77aef462e82ec3bdd8313cf879f91468f9a52677ba342846f8aa5facf7df9429
+#13 exporting manifest sha256:77aef462e82ec3bdd8313cf879f91468f9a52677ba342846f8aa5facf7df9429 done
+#13 exporting config sha256:7e54f399bc055fedc54547299d7eca414e729f469ec0f1fc6371e05a98c265ea done
+#13 exporting attestation manifest sha256:ebc83d5d75a1a46c092a0c73b269e53827bb0a37e78f2cecd63d95207fc178b3 done
+#13 exporting manifest list sha256:e1620a347ec35570c72745208da5bf5ff0ad4d97d76cc1c5b182e038dbf2d633 done
+#13 naming to docker.io/library/soup-review-1109a-checks:latest done
+#13 unpacking to docker.io/library/soup-review-1109a-checks:latest
+#13 unpacking to docker.io/library/soup-review-1109a-checks:latest 0.3s done
+#13 DONE 2.4s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+?   	soupqueue/cmd/queue	[no test files]
+?   	soupqueue/internal/httpapi	[no test files]
+=== RUN   TestHTTPContract
+--- PASS: TestHTTPContract (0.02s)
+=== RUN   TestConcurrentClaimAndSkipLocked
+--- PASS: TestConcurrentClaimAndSkipLocked (0.02s)
+=== RUN   TestExpiredZombie
+--- PASS: TestExpiredZombie (0.02s)
+=== RUN   TestLeaseExpiresDuringRowLockWait
+--- PASS: TestLeaseExpiresDuringRowLockWait (1.54s)
+=== RUN   TestIdempotencyAcrossUncommittedInsert
+--- PASS: TestIdempotencyAcrossUncommittedInsert (0.01s)
+=== RUN   TestCancelCompleteRace
+    protocol_test.go:289: cancel replies by winning state: map[cancelled:30 succeeded:18]
+--- PASS: TestCancelCompleteRace (0.07s)
+=== RUN   TestEffectErrorRollsBackState
+--- PASS: TestEffectErrorRollsBackState (0.01s)
+=== RUN   TestWorkerClockSkew
+    protocol_test.go:321: worker clock 2000-01-01 00:00:00 +0000 UTC, PostgreSQL clock 2026-11-09 20:13:37.686253 +0000 UTC
+    protocol_test.go:321: worker clock 2059-12-17 00:00:00 +0000 UTC, PostgreSQL clock 2026-11-09 20:13:37.691076 +0000 UTC
+--- PASS: TestWorkerClockSkew (0.02s)
+=== RUN   TestHeartbeatDuringLongJob
+--- PASS: TestHeartbeatDuringLongJob (2.64s)
+PASS
+ok  	soupqueue/internal/queue	4.348s

@@ -1,0 +1,60 @@
+SERVICE   STATE
+api       running
+db        running
+worker    running
+worker    running
+worker    running
+worker    running
+health {"ready":true}
+created {"id":1,"key":"persistence-review-1","name":"persist-me","duration_ms":80,"should_fail":false,"state":"queued","attempt":0}
+before stop {"id":1,"key":"persistence-review-1","name":"persist-me","duration_ms":80,"should_fail":false,"state":"succeeded","attempt":1}
+ Container soup-review-1109a-api-1  Stopping
+ Container soup-review-1109a-worker-4  Stopping
+ Container soup-review-1109a-worker-3  Stopping
+ Container soup-review-1109a-worker-2  Stopping
+ Container soup-review-1109a-worker-1  Stopping
+ Container soup-review-1109a-worker-1  Stopped
+ Container soup-review-1109a-worker-4  Stopped
+ Container soup-review-1109a-worker-3  Stopped
+ Container soup-review-1109a-api-1  Stopped
+ Container soup-review-1109a-worker-2  Stopped
+ Container soup-review-1109a-db-1  Stopping
+ Container soup-review-1109a-db-1  Stopped
+ Container soup-review-1109a-db-1  Starting
+ Container soup-review-1109a-db-1  Started
+ Container soup-review-1109a-db-1  Waiting
+ Container soup-review-1109a-db-1  Waiting
+ Container soup-review-1109a-db-1  Healthy
+ Container soup-review-1109a-api-1  Starting
+ Container soup-review-1109a-db-1  Healthy
+ Container soup-review-1109a-worker-3  Starting
+ Container soup-review-1109a-worker-3  Started
+ Container soup-review-1109a-worker-2  Starting
+ Container soup-review-1109a-api-1  Started
+ Container soup-review-1109a-worker-2  Started
+ Container soup-review-1109a-worker-4  Starting
+ Container soup-review-1109a-worker-4  Started
+ Container soup-review-1109a-worker-1  Starting
+ Container soup-review-1109a-worker-1  Started
+ Container soup-review-1109a-api-1  Waiting
+ Container soup-review-1109a-worker-3  Waiting
+ Container soup-review-1109a-worker-2  Waiting
+ Container soup-review-1109a-worker-4  Waiting
+ Container soup-review-1109a-worker-1  Waiting
+ Container soup-review-1109a-db-1  Waiting
+ Container soup-review-1109a-worker-3  Healthy
+ Container soup-review-1109a-worker-2  Healthy
+ Container soup-review-1109a-worker-4  Healthy
+ Container soup-review-1109a-worker-1  Healthy
+ Container soup-review-1109a-db-1  Healthy
+ Container soup-review-1109a-api-1  Healthy
+after stop/start {"id":1,"key":"persistence-review-1","name":"persist-me","duration_ms":80,"should_fail":false,"state":"succeeded","attempt":1}
+HTTP/1.1 200 OK
+Content-Type: application/json
+Location: /jobs/1
+Date: Mon, 09 Nov 2026 20:20:42 GMT
+Content-Length: 127
+
+{"id":1,"key":"persistence-review-1","name":"persist-me","duration_ms":80,"should_fail":false,"state":"succeeded","attempt":1}
+persisted effect rows=1
+RESULT PASS

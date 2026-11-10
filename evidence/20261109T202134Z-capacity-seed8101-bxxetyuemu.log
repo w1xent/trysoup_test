@@ -1,0 +1,178 @@
+2026/11/09 20:21:34.730583 raw=evidence/20261109T202134Z-capacity-seed8101-bxxetyuemu.log profile=capacity seed=8101 unique=2000 target_http_rps=100 project=soup-chaos-bxxetyuemu
+2026/11/09 20:21:39.840236 $ docker compose -p soup-chaos-bxxetyuemu up --build -d --wait
+#1 [internal] load local bake definitions
+#1 reading from stdin 991B done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [api internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [api internal] load .dockerignore
+#4 transferring context: 94B done
+#4 DONE 0.0s
+
+#5 [worker build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [api internal] load build context
+#6 transferring context: 658B done
+#6 DONE 0.0s
+
+#7 [api build 6/7] COPY internal ./internal
+#7 CACHED
+
+#8 [api build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#8 CACHED
+
+#9 [api build 5/7] COPY cmd ./cmd
+#9 CACHED
+
+#10 [api build 4/7] RUN go mod download
+#10 CACHED
+
+#11 [api build 3/7] COPY go.mod go.sum ./
+#11 CACHED
+
+#12 [api build 2/7] WORKDIR /src
+#12 CACHED
+
+#13 [api stage-1 1/1] COPY --from=build /queue /queue
+#13 CACHED
+
+#14 [api] exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:3b8e5accc54c71907a80536703527621a83ca6dbb3a6c0386d2f2b80d7710e7e done
+#14 exporting config sha256:3672d71482473ec975787025d10a0f6f1682b176266118df526ead19b06b0f47 done
+#14 exporting attestation manifest sha256:faa5233f902e616f33c255029b8e1722a58371f13597a6e94cd0249fa9f6b9ed done
+#14 exporting manifest list sha256:4a80b9b62e933e85ce9bc1eea299b21938a6f8e001909697005962b3c731d4d5 done
+#14 naming to docker.io/library/soup-chaos-bxxetyuemu-api:latest done
+#14 unpacking to docker.io/library/soup-chaos-bxxetyuemu-api:latest 0.0s done
+#14 DONE 0.1s
+
+#15 [worker] exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:ac1aebdae087cc4e3c8b6f1c1ec62d96a7e9199523fe2759556d1abcc1aede6b done
+#15 exporting config sha256:7dc44f42c0602fcb34410e8413291ce09bca8433e4bad89d93ba2a50308f95c2 done
+#15 exporting attestation manifest sha256:83a8921e19350ddcca1c080af56e60d50dd7741f27fca84b2a160f5942a3a42d done
+#15 exporting manifest list sha256:a1f8ba2e10d3a69937628cc18946b48beaa9842f0b5e87dcc71ab37ca84699ad done
+#15 naming to docker.io/library/soup-chaos-bxxetyuemu-worker:latest done
+#15 unpacking to docker.io/library/soup-chaos-bxxetyuemu-worker:latest 0.0s done
+#15 DONE 0.1s
+
+#16 [api] resolving provenance for metadata file
+#16 DONE 0.0s
+
+#17 [worker] resolving provenance for metadata file
+#17 DONE 0.0s
+ soup-chaos-bxxetyuemu-api  Built
+ soup-chaos-bxxetyuemu-worker  Built
+ Network soup-chaos-bxxetyuemu_default  Creating
+ Network soup-chaos-bxxetyuemu_default  Created
+ Volume soup-chaos-bxxetyuemu_data  Creating
+ Volume soup-chaos-bxxetyuemu_data  Created
+ Container soup-chaos-bxxetyuemu-db-1  Creating
+ Container soup-chaos-bxxetyuemu-db-1  Created
+ Container soup-chaos-bxxetyuemu-api-1  Creating
+ Container soup-chaos-bxxetyuemu-worker-4  Creating
+ Container soup-chaos-bxxetyuemu-worker-2  Creating
+ Container soup-chaos-bxxetyuemu-worker-1  Creating
+ Container soup-chaos-bxxetyuemu-worker-3  Creating
+ Container soup-chaos-bxxetyuemu-worker-3  Created
+ Container soup-chaos-bxxetyuemu-worker-2  Created
+ Container soup-chaos-bxxetyuemu-api-1  Created
+ Container soup-chaos-bxxetyuemu-worker-4  Created
+ Container soup-chaos-bxxetyuemu-worker-1  Created
+ Container soup-chaos-bxxetyuemu-db-1  Starting
+ Container soup-chaos-bxxetyuemu-db-1  Started
+ Container soup-chaos-bxxetyuemu-db-1  Waiting
+ Container soup-chaos-bxxetyuemu-db-1  Waiting
+ Container soup-chaos-bxxetyuemu-db-1  Healthy
+ Container soup-chaos-bxxetyuemu-db-1  Healthy
+ Container soup-chaos-bxxetyuemu-worker-1  Starting
+ Container soup-chaos-bxxetyuemu-api-1  Starting
+ Container soup-chaos-bxxetyuemu-api-1  Started
+ Container soup-chaos-bxxetyuemu-worker-1  Started
+ Container soup-chaos-bxxetyuemu-worker-3  Starting
+ Container soup-chaos-bxxetyuemu-worker-3  Started
+ Container soup-chaos-bxxetyuemu-worker-2  Starting
+ Container soup-chaos-bxxetyuemu-worker-2  Started
+ Container soup-chaos-bxxetyuemu-worker-4  Starting
+ Container soup-chaos-bxxetyuemu-worker-4  Started
+ Container soup-chaos-bxxetyuemu-worker-1  Waiting
+ Container soup-chaos-bxxetyuemu-worker-3  Waiting
+ Container soup-chaos-bxxetyuemu-worker-2  Waiting
+ Container soup-chaos-bxxetyuemu-worker-4  Waiting
+ Container soup-chaos-bxxetyuemu-db-1  Waiting
+ Container soup-chaos-bxxetyuemu-api-1  Waiting
+ Container soup-chaos-bxxetyuemu-worker-1  Healthy
+ Container soup-chaos-bxxetyuemu-worker-3  Healthy
+ Container soup-chaos-bxxetyuemu-worker-2  Healthy
+ Container soup-chaos-bxxetyuemu-worker-4  Healthy
+ Container soup-chaos-bxxetyuemu-db-1  Healthy
+ Container soup-chaos-bxxetyuemu-api-1  Healthy
+result=<nil>
+2026/11/09 20:21:40.087725 api=http://127.0.0.1:55006 workers=[soup-chaos-bxxetyuemu-worker-1 soup-chaos-bxxetyuemu-worker-2 soup-chaos-bxxetyuemu-worker-3 soup-chaos-bxxetyuemu-worker-4] db=PostgreSQL 17.11 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit|0|0
+2026/11/09 20:21:50.080200 offered unique=1000 requests_dispatched=1000
+2026/11/09 20:22:00.080105 offered unique=2000 requests_dispatched=2000
+2026/11/09 20:22:00.081930 traffic offered_rps=100 completed_rps=100.03 seconds=19.994 requests=2000 statuses=map[201:2000]
+2026/11/09 20:22:00.082721 latency_ms http p50=1.50 p95=3.58 p99=6.64 max=138.26; from_scheduled p50=3.15 p95=5.26 p99=7.61 max=140.60
+2026/11/09 20:22:00.409698 drain queued=992 running=4
+2026/11/09 20:22:01.556236 drain queued=940 running=4
+2026/11/09 20:22:02.691830 drain queued=880 running=4
+2026/11/09 20:22:03.826107 drain queued=827 running=4
+2026/11/09 20:22:04.965044 drain queued=773 running=4
+2026/11/09 20:22:06.086846 drain queued=716 running=4
+2026/11/09 20:22:07.226832 drain queued=661 running=4
+2026/11/09 20:22:08.336724 drain queued=605 running=4
+2026/11/09 20:22:09.476911 drain queued=547 running=4
+2026/11/09 20:22:10.639964 drain queued=492 running=3
+2026/11/09 20:22:11.784571 drain queued=431 running=4
+2026/11/09 20:22:12.949785 drain queued=375 running=4
+2026/11/09 20:22:14.089646 drain queued=316 running=4
+2026/11/09 20:22:15.193361 drain queued=259 running=4
+2026/11/09 20:22:16.342056 drain queued=204 running=4
+2026/11/09 20:22:17.484315 drain queued=149 running=4
+2026/11/09 20:22:18.621095 drain queued=95 running=4
+2026/11/09 20:22:19.765548 drain queued=36 running=4
+2026/11/09 20:22:20.871297 drain queued=0 running=0
+2026/11/09 20:22:21.000802 verified keys=2000 states=map[failed:87 succeeded:1913] effects=1913 attempts=2000 retried_jobs=0 kills=0 cancels=map[] paginated=2000 missing=0 duplicate_effects=0 stuck=0 inconsistencies=0
+2026/11/09 20:22:22.066261 $ docker compose -p soup-chaos-bxxetyuemu down -v --rmi local --timeout 5
+ Container soup-chaos-bxxetyuemu-api-1  Stopping
+ Container soup-chaos-bxxetyuemu-worker-1  Stopping
+ Container soup-chaos-bxxetyuemu-worker-4  Stopping
+ Container soup-chaos-bxxetyuemu-worker-3  Stopping
+ Container soup-chaos-bxxetyuemu-worker-2  Stopping
+ Container soup-chaos-bxxetyuemu-worker-3  Stopped
+ Container soup-chaos-bxxetyuemu-worker-3  Removing
+ Container soup-chaos-bxxetyuemu-worker-3  Removed
+ Container soup-chaos-bxxetyuemu-worker-2  Stopped
+ Container soup-chaos-bxxetyuemu-worker-2  Removing
+ Container soup-chaos-bxxetyuemu-worker-2  Removed
+ Container soup-chaos-bxxetyuemu-api-1  Stopped
+ Container soup-chaos-bxxetyuemu-api-1  Removing
+ Container soup-chaos-bxxetyuemu-worker-4  Stopped
+ Container soup-chaos-bxxetyuemu-worker-4  Removing
+ Container soup-chaos-bxxetyuemu-api-1  Removed
+ Container soup-chaos-bxxetyuemu-worker-1  Stopped
+ Container soup-chaos-bxxetyuemu-worker-1  Removing
+ Container soup-chaos-bxxetyuemu-worker-4  Removed
+ Container soup-chaos-bxxetyuemu-worker-1  Removed
+ Container soup-chaos-bxxetyuemu-db-1  Stopping
+ Container soup-chaos-bxxetyuemu-db-1  Stopped
+ Container soup-chaos-bxxetyuemu-db-1  Removing
+ Container soup-chaos-bxxetyuemu-db-1  Removed
+ Image soup-chaos-bxxetyuemu-api:latest  Removing
+ Image soup-chaos-bxxetyuemu-worker:latest  Removing
+ Volume soup-chaos-bxxetyuemu_data  Removing
+ Network soup-chaos-bxxetyuemu_default  Removing
+ Image soup-chaos-bxxetyuemu-api:latest  Removed
+ Image soup-chaos-bxxetyuemu-worker:latest  Removed
+ Volume soup-chaos-bxxetyuemu_data  Removed
+ Network soup-chaos-bxxetyuemu_default  Removed
+result=<nil>
+2026/11/09 20:22:22.066357 RESULT PASS

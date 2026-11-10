@@ -1,0 +1,11 @@
+ Container soup-review-1109a-db-1  Running
+=== RUN   TestExpiredZombie
+    protocol_test.go:157: expired finish: <nil>
+--- FAIL: TestExpiredZombie (0.03s)
+=== RUN   TestLeaseExpiresDuringRowLockWait
+    protocol_test.go:214: stale result accepted <nil>
+--- FAIL: TestLeaseExpiresDuringRowLockWait (1.55s)
+FAIL
+FAIL	soupqueue/internal/queue	1.579s
+FAIL
+

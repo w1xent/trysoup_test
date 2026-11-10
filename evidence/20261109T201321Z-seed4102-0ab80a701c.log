@@ -1,0 +1,284 @@
+[   0.000s] utc=20261109T201321Z seed=4102 unique=10000 target_http_rps=100 project=soup-chaos-0ab80a701c
+[  11.465s] $ docker compose -p soup-chaos-0ab80a701c up --build -d --wait --scale worker=8
+#1 [internal] load local bake definitions
+#1 reading from stdin 991B done
+#1 DONE 0.0s
+
+#2 [worker internal] load build definition from Dockerfile
+#2 transferring dockerfile: 311B done
+#2 DONE 0.0s
+
+#3 [api internal] load metadata for docker.io/library/golang:1.26-alpine
+#3 DONE 0.0s
+
+#4 [api internal] load .dockerignore
+#4 transferring context: 94B done
+#4 DONE 0.0s
+
+#5 [api build 1/7] FROM docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696
+#5 resolve docker.io/library/golang:1.26-alpine@sha256:87c65a688975c0b1d4585d204874c45ca78354670e3a5f11368c5a492303d696 done
+#5 DONE 0.0s
+
+#6 [worker internal] load build context
+#6 transferring context: 12.91kB done
+#6 DONE 0.0s
+
+#7 [api build 2/7] WORKDIR /src
+#7 CACHED
+
+#8 [worker build 3/7] COPY go.mod go.sum ./
+#8 DONE 0.0s
+
+#9 [worker build 4/7] RUN go mod download
+#9 DONE 2.1s
+
+#10 [api build 5/7] COPY cmd ./cmd
+#10 DONE 0.0s
+
+#11 [api build 6/7] COPY internal ./internal
+#11 DONE 0.0s
+
+#12 [api build 7/7] RUN CGO_ENABLED=0 go build -trimpath -o /queue ./cmd/queue
+#12 DONE 3.8s
+
+#13 [worker stage-1 1/1] COPY --from=build /queue /queue
+#13 DONE 0.0s
+
+#14 [worker] exporting to image
+#14 exporting layers
+#14 exporting layers 0.2s done
+#14 exporting manifest sha256:23fd596783c829f2310d422e4f2e6d845791b43b954296247ed68bee964e1771
+#14 exporting manifest sha256:23fd596783c829f2310d422e4f2e6d845791b43b954296247ed68bee964e1771 done
+#14 exporting config sha256:ab9f9dd1a792a77fb7dde4ecdff53de6fee527808355386c09db676dbea6ce4b done
+#14 exporting attestation manifest sha256:8b9c1c32d314415d6ed833fe9ea6d8cd4131d08b3a2f0a53e06983d40abd1256 done
+#14 exporting manifest list sha256:6e968d26fa1fff6a7290c52fb7a448a7f9749be7ce1f1c45bca828b2bfabc7e0 done
+#14 naming to docker.io/library/soup-chaos-0ab80a701c-worker:latest done
+#14 unpacking to docker.io/library/soup-chaos-0ab80a701c-worker:latest 0.0s done
+#14 DONE 0.3s
+
+#15 [api] exporting to image
+#15 exporting layers 0.2s done
+#15 exporting manifest sha256:aed53d145fcaed79379cc628417b8f492914c2317d7a1cb9b364913283517b4a done
+#15 exporting config sha256:593196d6471bd66fa63bb065e03341bb99deeff06b6ed63f6bcd9c4ecbee6827 done
+#15 exporting attestation manifest sha256:f09b51b898e066d98e0f24728c3967333ee54de7006d78d1c9239c5b5878cbd0 done
+#15 exporting manifest list sha256:d1d5f9ce05d4f80845f1b970d13aa5e744673a805073bf8a4320e08acedcb24d done
+#15 naming to docker.io/library/soup-chaos-0ab80a701c-api:latest done
+#15 unpacking to docker.io/library/soup-chaos-0ab80a701c-api:latest 0.0s done
+#15 DONE 0.3s
+
+#16 [api] resolving provenance for metadata file
+#16 DONE 0.0s
+
+#17 [worker] resolving provenance for metadata file
+#17 DONE 0.0s
+ soup-chaos-0ab80a701c-api  Built
+ soup-chaos-0ab80a701c-worker  Built
+ Network soup-chaos-0ab80a701c_default  Creating
+ Network soup-chaos-0ab80a701c_default  Created
+ Volume soup-chaos-0ab80a701c_data  Creating
+ Volume soup-chaos-0ab80a701c_data  Created
+ Container soup-chaos-0ab80a701c-db-1  Creating
+ Container soup-chaos-0ab80a701c-db-1  Created
+ Container soup-chaos-0ab80a701c-api-1  Creating
+ Container soup-chaos-0ab80a701c-worker-2  Creating
+ Container soup-chaos-0ab80a701c-worker-8  Creating
+ Container soup-chaos-0ab80a701c-worker-3  Creating
+ Container soup-chaos-0ab80a701c-worker-1  Creating
+ Container soup-chaos-0ab80a701c-worker-5  Creating
+ Container soup-chaos-0ab80a701c-worker-4  Creating
+ Container soup-chaos-0ab80a701c-worker-6  Creating
+ Container soup-chaos-0ab80a701c-worker-7  Creating
+ Container soup-chaos-0ab80a701c-worker-7  Created
+ Container soup-chaos-0ab80a701c-worker-1  Created
+ Container soup-chaos-0ab80a701c-worker-5  Created
+ Container soup-chaos-0ab80a701c-worker-3  Created
+ Container soup-chaos-0ab80a701c-worker-8  Created
+ Container soup-chaos-0ab80a701c-worker-2  Created
+ Container soup-chaos-0ab80a701c-api-1  Created
+ Container soup-chaos-0ab80a701c-worker-4  Created
+ Container soup-chaos-0ab80a701c-worker-6  Created
+ Container soup-chaos-0ab80a701c-db-1  Starting
+ Container soup-chaos-0ab80a701c-db-1  Started
+ Container soup-chaos-0ab80a701c-db-1  Waiting
+ Container soup-chaos-0ab80a701c-db-1  Waiting
+ Container soup-chaos-0ab80a701c-db-1  Healthy
+ Container soup-chaos-0ab80a701c-worker-6  Starting
+ Container soup-chaos-0ab80a701c-db-1  Healthy
+ Container soup-chaos-0ab80a701c-api-1  Starting
+ Container soup-chaos-0ab80a701c-api-1  Started
+ Container soup-chaos-0ab80a701c-worker-6  Started
+ Container soup-chaos-0ab80a701c-worker-3  Starting
+ Container soup-chaos-0ab80a701c-worker-3  Started
+ Container soup-chaos-0ab80a701c-worker-4  Starting
+ Container soup-chaos-0ab80a701c-worker-4  Started
+ Container soup-chaos-0ab80a701c-worker-5  Starting
+ Container soup-chaos-0ab80a701c-worker-5  Started
+ Container soup-chaos-0ab80a701c-worker-8  Starting
+ Container soup-chaos-0ab80a701c-worker-8  Started
+ Container soup-chaos-0ab80a701c-worker-2  Starting
+ Container soup-chaos-0ab80a701c-worker-2  Started
+ Container soup-chaos-0ab80a701c-worker-1  Starting
+ Container soup-chaos-0ab80a701c-worker-1  Started
+ Container soup-chaos-0ab80a701c-worker-7  Starting
+ Container soup-chaos-0ab80a701c-worker-7  Started
+ Container soup-chaos-0ab80a701c-db-1  Waiting
+ Container soup-chaos-0ab80a701c-api-1  Waiting
+ Container soup-chaos-0ab80a701c-worker-6  Waiting
+ Container soup-chaos-0ab80a701c-worker-3  Waiting
+ Container soup-chaos-0ab80a701c-worker-4  Waiting
+ Container soup-chaos-0ab80a701c-worker-5  Waiting
+ Container soup-chaos-0ab80a701c-worker-8  Waiting
+ Container soup-chaos-0ab80a701c-worker-2  Waiting
+ Container soup-chaos-0ab80a701c-worker-1  Waiting
+ Container soup-chaos-0ab80a701c-worker-7  Waiting
+ Container soup-chaos-0ab80a701c-worker-6  Healthy
+ Container soup-chaos-0ab80a701c-worker-3  Healthy
+ Container soup-chaos-0ab80a701c-worker-4  Healthy
+ Container soup-chaos-0ab80a701c-worker-5  Healthy
+ Container soup-chaos-0ab80a701c-worker-8  Healthy
+ Container soup-chaos-0ab80a701c-worker-2  Healthy
+ Container soup-chaos-0ab80a701c-worker-1  Healthy
+ Container soup-chaos-0ab80a701c-worker-7  Healthy
+ Container soup-chaos-0ab80a701c-db-1  Healthy
+ Container soup-chaos-0ab80a701c-api-1  Healthy
+exit=0
+[  12.092s] workers=8 kill_interval_s=2 api_port=55002 db=PostgreSQL 17.11 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+[  14.558s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  16.342s] SIGKILL victim=6bcc78109105 exit=137 restarted=true
+[  18.331s] SIGKILL victim=6bcc78109105 exit=137 restarted=true
+[  20.362s] SIGKILL victim=6bcc78109105 exit=137 restarted=true
+[  22.378s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[  24.360s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[  26.362s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[  27.436s] offered unique=1000 requests_dispatched=1536
+[  28.337s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[  30.371s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  32.335s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  34.371s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  36.329s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  38.332s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  40.326s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  42.335s] SIGKILL victim=f86dc026fc9e exit=137 restarted=true
+[  42.765s] offered unique=2000 requests_dispatched=3069
+[  44.369s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  46.352s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  48.339s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[  50.346s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  52.384s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[  54.482s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  56.359s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[  58.096s] offered unique=3000 requests_dispatched=4603
+[  58.333s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  60.360s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  62.362s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  64.357s] SIGKILL victim=6bcc78109105 exit=137 restarted=true
+[  66.344s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  68.348s] SIGKILL victim=f86dc026fc9e exit=137 restarted=true
+[  70.322s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[  72.343s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  73.435s] offered unique=4000 requests_dispatched=6136
+[  74.459s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[  76.347s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  78.355s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[  80.370s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[  82.352s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[  84.375s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[  86.337s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[  88.348s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[  88.764s] offered unique=5000 requests_dispatched=7669
+[  90.341s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[  92.290s] SIGKILL victim=6bcc78109105 exit=137 restarted=true
+[  94.714s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[  96.563s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[  98.408s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[ 100.336s] SIGKILL victim=6bcc78109105 exit=137 restarted=true
+[ 102.393s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[ 104.093s] offered unique=6000 requests_dispatched=9203
+[ 104.385s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[ 106.366s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[ 108.318s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[ 110.340s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[ 112.346s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[ 114.370s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[ 116.352s] SIGKILL victim=3697f1153292 exit=137 restarted=true
+[ 118.331s] SIGKILL victim=6bcc78109105 exit=137 restarted=true
+[ 119.436s] offered unique=7000 requests_dispatched=10736
+[ 120.367s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[ 122.364s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[ 124.324s] SIGKILL victim=f86dc026fc9e exit=137 restarted=true
+[ 126.374s] SIGKILL victim=f86dc026fc9e exit=137 restarted=true
+[ 128.355s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[ 130.329s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[ 132.346s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[ 134.364s] SIGKILL victim=f86dc026fc9e exit=137 restarted=true
+[ 134.764s] offered unique=8000 requests_dispatched=12269
+[ 136.360s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[ 138.372s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[ 140.358s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[ 142.347s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[ 144.340s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[ 146.327s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[ 148.362s] SIGKILL victim=371907c1b7e1 exit=137 restarted=true
+[ 150.095s] offered unique=9000 requests_dispatched=13803
+[ 150.376s] SIGKILL victim=f86dc026fc9e exit=137 restarted=true
+[ 152.333s] SIGKILL victim=9afaf823bdfa exit=137 restarted=true
+[ 154.337s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[ 156.362s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[ 158.339s] SIGKILL victim=aa88caff129a exit=137 restarted=true
+[ 160.353s] SIGKILL victim=f86dc026fc9e exit=137 restarted=true
+[ 162.341s] SIGKILL victim=64bc589ca9db exit=137 restarted=true
+[ 164.376s] SIGKILL victim=0efa7d057572 exit=137 restarted=true
+[ 165.454s] traffic {"offered_rps": 100, "completed_rps": 100.01, "seconds": 153.326, "requests": 15334, "statuses": {"201": 10000, "200": 5334}, "http_p50_ms": 1.73, "http_p95_ms": 4.38, "http_p99_ms": 11.22, "http_p100_ms": 117.16, "from_scheduled_p50_ms": 5.28, "from_scheduled_p95_ms": 11.57, "from_scheduled_p99_ms": 17.01, "from_scheduled_p100_ms": 123.75}
+[ 165.711s] drain pending=0
+[ 165.937s] verified keys=10000 states={'cancelled': 2000, 'succeeded': 7652, 'failed': 348} effects=7652 attempts=8439 retried_jobs=31 kills=76 cancels={'cancelled': 2000} paginated=10000 missing=0 duplicate_effects=0 stuck=0 inconsistencies=0
+[ 167.123s] $ docker compose -p soup-chaos-0ab80a701c down -v --rmi local --timeout 5
+ Container soup-chaos-0ab80a701c-api-1  Stopping
+ Container soup-chaos-0ab80a701c-worker-4  Stopping
+ Container soup-chaos-0ab80a701c-worker-7  Stopping
+ Container soup-chaos-0ab80a701c-worker-8  Stopping
+ Container soup-chaos-0ab80a701c-worker-5  Stopping
+ Container soup-chaos-0ab80a701c-worker-2  Stopping
+ Container soup-chaos-0ab80a701c-worker-1  Stopping
+ Container soup-chaos-0ab80a701c-worker-3  Stopping
+ Container soup-chaos-0ab80a701c-worker-6  Stopping
+ Container soup-chaos-0ab80a701c-worker-7  Stopped
+ Container soup-chaos-0ab80a701c-worker-7  Removing
+ Container soup-chaos-0ab80a701c-worker-7  Removed
+ Container soup-chaos-0ab80a701c-worker-8  Stopped
+ Container soup-chaos-0ab80a701c-worker-8  Removing
+ Container soup-chaos-0ab80a701c-worker-8  Removed
+ Container soup-chaos-0ab80a701c-api-1  Stopped
+ Container soup-chaos-0ab80a701c-api-1  Removing
+ Container soup-chaos-0ab80a701c-api-1  Removed
+ Container soup-chaos-0ab80a701c-worker-5  Stopped
+ Container soup-chaos-0ab80a701c-worker-5  Removing
+ Container soup-chaos-0ab80a701c-worker-3  Stopped
+ Container soup-chaos-0ab80a701c-worker-3  Removing
+ Container soup-chaos-0ab80a701c-worker-5  Removed
+ Container soup-chaos-0ab80a701c-worker-3  Removed
+ Container soup-chaos-0ab80a701c-worker-2  Stopped
+ Container soup-chaos-0ab80a701c-worker-2  Removing
+ Container soup-chaos-0ab80a701c-worker-2  Removed
+ Container soup-chaos-0ab80a701c-worker-6  Stopped
+ Container soup-chaos-0ab80a701c-worker-6  Removing
+ Container soup-chaos-0ab80a701c-worker-1  Stopped
+ Container soup-chaos-0ab80a701c-worker-1  Removing
+ Container soup-chaos-0ab80a701c-worker-6  Removed
+ Container soup-chaos-0ab80a701c-worker-4  Stopped
+ Container soup-chaos-0ab80a701c-worker-4  Removing
+ Container soup-chaos-0ab80a701c-worker-1  Removed
+ Container soup-chaos-0ab80a701c-worker-4  Removed
+ Container soup-chaos-0ab80a701c-db-1  Stopping
+ Container soup-chaos-0ab80a701c-db-1  Stopped
+ Container soup-chaos-0ab80a701c-db-1  Removing
+ Container soup-chaos-0ab80a701c-db-1  Removed
+ Image soup-chaos-0ab80a701c-api:latest  Removing
+ Image soup-chaos-0ab80a701c-worker:latest  Removing
+ Volume soup-chaos-0ab80a701c_data  Removing
+ Network soup-chaos-0ab80a701c_default  Removing
+ Image soup-chaos-0ab80a701c-worker:latest  Removed
+ Volume soup-chaos-0ab80a701c_data  Removed
+ Image soup-chaos-0ab80a701c-api:latest  Removed
+ Network soup-chaos-0ab80a701c_default  Removed
+exit=0
+[ 167.123s] RESULT PASS

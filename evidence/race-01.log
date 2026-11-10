@@ -1,0 +1,31 @@
+127.0.0.1:5432 - no response
+127.0.0.1:5432 - accepting connections
+go version go1.26.3 darwin/arm64
+?   	soupqueue/cmd/chaos	[no test files]
+?   	soupqueue/cmd/queue	[no test files]
+?   	soupqueue/internal/httpapi	[no test files]
+=== RUN   TestHTTPContract
+--- PASS: TestHTTPContract (0.07s)
+=== RUN   TestConcurrentClaimAndSkipLocked
+--- PASS: TestConcurrentClaimAndSkipLocked (0.08s)
+=== RUN   TestExpiredZombie
+--- PASS: TestExpiredZombie (0.05s)
+=== RUN   TestLeaseExpiresDuringRowLockWait
+--- PASS: TestLeaseExpiresDuringRowLockWait (1.59s)
+=== RUN   TestIdempotencyAcrossUncommittedInsert
+--- PASS: TestIdempotencyAcrossUncommittedInsert (0.08s)
+=== RUN   TestCancelCompleteRace
+    protocol_test.go:289: cancel replies by winning state: map[cancelled:47 succeeded:1]
+--- PASS: TestCancelCompleteRace (0.20s)
+=== RUN   TestEffectErrorRollsBackState
+--- PASS: TestEffectErrorRollsBackState (0.03s)
+=== RUN   TestWorkerClockSkew
+    protocol_test.go:321: worker clock 2000-01-01 00:00:00 +0000 UTC, PostgreSQL clock 2026-11-09 20:21:26.725839 +0000 UTC
+    protocol_test.go:321: worker clock 2059-12-17 00:00:00 +0000 UTC, PostgreSQL clock 2026-11-09 20:21:26.743097 +0000 UTC
+--- PASS: TestWorkerClockSkew (0.06s)
+=== RUN   TestHeartbeatDuringLongJob
+--- PASS: TestHeartbeatDuringLongJob (2.67s)
+PASS
+ok  	soupqueue/internal/queue	6.588s
+RESULT PASS
+0fd9774e502a3427d75c43618606f1ff51aeb491b327091cbdc310fd39f21ffe
